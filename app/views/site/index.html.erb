@@ -1,5 +1,5 @@
 <% if logged_in? %>
-
+  Hi <%= current_user.name %>
 <% else %>
   <%= link_to "log in", "/auth/fitbit" %>
 <% end %>
