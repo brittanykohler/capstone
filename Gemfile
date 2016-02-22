@@ -19,6 +19,8 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 # omniauth
 gem 'omniauth'
 gem 'omniauth-oauth2', '~> 1.3.1'
+# gem 'omniauth-fitbit-oauth2'
+gem 'omniauth-fitbit'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
