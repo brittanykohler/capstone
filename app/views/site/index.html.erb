@@ -1,6 +1,19 @@
 <% if logged_in? %>
   Hi <%= current_user.name %>
   Current steps: <%= @current_steps %> / <%= @step_goal %>
+  <h1>Google Maps Tut</h1>
+  <div id="map-container">
+    <div id="map-canvas"></div>
+  </div>
+
+
+  <%= link_to "log out", signout_path %>
 <% else %>
   <%= link_to "log in", "/auth/fitbit" %>
 <% end %>
+
+
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&libraries=places"></script>
+
+service = new google.maps.places.PlacesService(map);
+service.nearbySearch(request, callback); -->

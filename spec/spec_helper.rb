@@ -37,7 +37,8 @@ RSpec.configure do |config|
     # hashes to return during testing.
     OmniAuth.config.mock_auth[:fitbit] = OmniAuth::AuthHash.new({:uid => '123545',
       info: {name: "Brittany", timezone: "LosAngeles"},
-      extra: {raw_info: {user: {strideLengthWalking: "72", strideLengthRunning: "95", avatar: "www.google.com"}}}})
+      extra: {raw_info: {user: {strideLengthWalking: "72", strideLengthRunning: "95", avatar: "www.google.com"}}},
+      credentials: {token: 'abcdef', secret: 'so secret'}})
   end
 
   config.expect_with :rspec do |expectations|
