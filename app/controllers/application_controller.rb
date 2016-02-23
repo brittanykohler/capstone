@@ -11,12 +11,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def require_user
-    if !logged_in?
-      flash[:error] = "Please log in to view this section"
-      redirect_to root_path
-    end
-  end
+
+  # might use later for authentication purposes
+  # def require_user
+  #   if !logged_in?
+  #     flash[:error] = "Please log in to view this section"
+  #     redirect_to root_path
+  #   end
+  # end
 
   def logged_in?
     !current_user.nil?
