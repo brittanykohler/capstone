@@ -27,7 +27,7 @@ function initialize() {
     ];
 
     destinations = [
-      "9215 Roosevelt Way NE Seattle, WA, USA",
+      new google.maps.LatLng(47.621908, -122.351625)
     ];
 
     createTable();
