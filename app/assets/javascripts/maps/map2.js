@@ -1,39 +1,14 @@
-var origins = [
-    "Euston",
-    "Kings Cross",
-    "Liverpool St",
-    "Paddington",
-    "St. Pancras",
-    "Victoria",
-    "Waterloo",
-];
-
-var destinations = [
-  "Buckingham Palace",
-  "Houses of Parliament",
-  "Tower Bridge",
-  "Trafalgar Square",
-  "Westminster Abbey",
-];
-
-var query = {
-  origins: origins,
-  destinations: destinations,
-  travelMode: "WALKING",
-  unitSystem: 1
-  // travelMode: google.maps.TravelMode.WALKING,
-  // unitSystem: google.maps.UnitSystem.IMPERIAL
-};
-
 var map, dms;
 var dirService, dirRenderer;
 var highlightedCell;
 var routeQuery;
 var bounds;
 var panning = false;
+var destinations;
+var origins;
+var query;
 
 function initialize() {
-  console.log("hi");
   var pos;
   navigator.geolocation.getCurrentPosition(function(position) {
     pos = {
@@ -46,35 +21,62 @@ function initialize() {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    origins = [
+      "Euston",
+      "Kings Cross",
+      "Liverpool St",
+      "Paddington",
+      "St. Pancras",
+      "Victoria",
+      "Waterloo",
+    ];
+
+    destinations = [
+      "Buckingham Palace",
+      "Houses of Parliament",
+      "Tower Bridge",
+      "Trafalgar Square",
+      "Westminster Abbey",
+    ];
+
+    for (var i = 0; i < origins.length; i++) {
+      origins[i] += ' Station, London, UK';
+    }
+
+    for (var j = 0; j < destinations.length; j++) {
+      destinations[j] += ', London, UK';
+    }
+
+
     createTable();
-    console.log(pos);
+    dms = new google.maps.DistanceMatrixService();
 
-      for (var i = 0; i < origins.length; i++) {
-        origins[i] += ' Station, London, UK';
+    dirService = new google.maps.DirectionsService();
+    dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+    dirRenderer.setMap(map);
+
+    google.maps.event.addListener(map, 'idle', function() {
+      if (panning) {
+        map.fitBounds(bounds);
+        panning = false;
       }
-
-      for (var j = 0; j < destinations.length; j++) {
-        destinations[j] += ', London, UK';
-      }
-
-      dms = new google.maps.DistanceMatrixService();
-
-      dirService = new google.maps.DirectionsService();
-      dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
-      dirRenderer.setMap(map);
-
-      google.maps.event.addListener(map, 'idle', function() {
-        if (panning) {
-          map.fitBounds(bounds);
-          panning = false;
-        }
-      });
+    });
 
       updateMatrix();
   });
 }
 
 function updateMatrix() {
+  var query = {
+    origins: origins,
+    destinations: destinations,
+    travelMode: "WALKING",
+    unitSystem: 1
+    // travelMode: google.maps.TravelMode.WALKING,
+    // unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+
   dms.getDistanceMatrix(query, function(response, status) {
       if (status == "OK") {
         populateTable(response.rows);
@@ -118,6 +120,14 @@ function populateTable(rows) {
 }
 
 function getRouteFunction(i, j) {
+  var query = {
+    origins: origins,
+    destinations: destinations,
+    travelMode: "WALKING",
+    unitSystem: 1
+    // travelMode: google.maps.TravelMode.WALKING,
+    // unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
   return function() {
     routeQuery = {
       origin: origins[i],
