@@ -14,7 +14,47 @@
  *= require_self
  */
 
+body {
+  font-family: sans-serif;
+}
+
+#container {
+  position: absolute;
+  width:500px;
+  left: 5px;
+  top: 5px;
+}
+
 #map {
-  height: 700px;
-  width: 700px;
+  position: absolute;
+  width: 497px;
+  height:300px;
+  border: 1px solid grey;
+}
+
+#matrix {
+  position: absolute;
+  top: 310px;
+  font-size: 10px;
+  border-collapse: collapse;
+}
+
+#controls {
+  right: 5px;
+  top: 240px;
+  text-align: right;
+  position: absolute;
+}
+
+.origin,.destination {
+  font-weight: bold;
+  text-align: center;
+  background-color: #e0ffe0;
+}
+
+td {
+  border: 1px solid grey;
+  width: 80px;
+  cursor: default;
+  background-color: #ffffff;
 }

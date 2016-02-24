@@ -13,7 +13,7 @@ function initMap() {
         zoom: 15
       });
       var service = new google.maps.places.PlacesService(map);
-      console.log(gon.distance_needed);
+      // console.log(gon.distance_needed);
       service.nearbySearch({
         location: pos,
         radius: gon.distance_needed,
@@ -37,6 +37,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function callback(results, status) {
+  // console.log(results);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]);
@@ -52,7 +53,31 @@ function createMarker(place) {
   });
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
+    var contentString = place.name + ' Distance: ' + getDistance(place);
+    infowindow.setContent(contentString);
     infowindow.open(map, this);
   });
+}
+
+function getDistance(place) {
+  var origin1 = new google.maps.LatLng(map.center.lat(), map.center.lng());
+  var destination1 = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+  var service = new google.maps.DistanceMatrixService();
+  var distance;
+  service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: [destination1],
+      travelMode: google.maps.TravelMode.WALKING,
+    }, callback);
+  function callback(response, status) {
+    // return response.rows[0].elements[0].distance.value;
+    distance = response.rows[0].elements[0].distance.value;
+  }
+  console.log(distance);
+  return distance;
+}
+
+function getSteps(place) {
+
 }
