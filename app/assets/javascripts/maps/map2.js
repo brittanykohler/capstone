@@ -23,31 +23,12 @@ function initialize() {
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     origins = [
-      "Euston",
-      "Kings Cross",
-      "Liverpool St",
-      "Paddington",
-      "St. Pancras",
-      "Victoria",
-      "Waterloo",
+      "119 Harvard Ave E Seattle, WA, USA",
     ];
 
     destinations = [
-      "Buckingham Palace",
-      "Houses of Parliament",
-      "Tower Bridge",
-      "Trafalgar Square",
-      "Westminster Abbey",
+      "9215 Roosevelt Way NE Seattle, WA, USA",
     ];
-
-    for (var i = 0; i < origins.length; i++) {
-      origins[i] += ' Station, London, UK';
-    }
-
-    for (var j = 0; j < destinations.length; j++) {
-      destinations[j] += ', London, UK';
-    }
-
 
     createTable();
     dms = new google.maps.DistanceMatrixService();
@@ -62,7 +43,6 @@ function initialize() {
         panning = false;
       }
     });
-
       updateMatrix();
   });
 }
@@ -78,6 +58,8 @@ function updateMatrix() {
   };
 
   dms.getDistanceMatrix(query, function(response, status) {
+    console.log(response);
+    console.log(status);
       if (status == "OK") {
         populateTable(response.rows);
       }
