@@ -34,36 +34,44 @@ var panning = false;
 
 function initialize() {
   console.log("hi");
-  var mapOptions = {
-    zoom: 12,
-    center: new google.maps.LatLng(51.5, -0.126),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  createTable();
-
-  for (var i = 0; i < origins.length; i++) {
-    origins[i] += ' Station, London, UK';
-  }
-
-  for (var j = 0; j < destinations.length; j++) {
-    destinations[j] += ', London, UK';
-  }
-
-  dms = new google.maps.DistanceMatrixService();
-
-  dirService = new google.maps.DirectionsService();
-  dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
-  dirRenderer.setMap(map);
-
-  google.maps.event.addListener(map, 'idle', function() {
-    if (panning) {
-      map.fitBounds(bounds);
-      panning = false;
+  var pos;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
     }
-  });
+    var mapOptions = {
+      zoom: 15,
+      center: pos,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    createTable();
+    console.log(pos);
 
-  updateMatrix();
+      for (var i = 0; i < origins.length; i++) {
+        origins[i] += ' Station, London, UK';
+      }
+
+      for (var j = 0; j < destinations.length; j++) {
+        destinations[j] += ', London, UK';
+      }
+
+      dms = new google.maps.DistanceMatrixService();
+
+      dirService = new google.maps.DirectionsService();
+      dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+      dirRenderer.setMap(map);
+
+      google.maps.event.addListener(map, 'idle', function() {
+        if (panning) {
+          map.fitBounds(bounds);
+          panning = false;
+        }
+      });
+
+      updateMatrix();
+  });
 }
 
 function updateMatrix() {
