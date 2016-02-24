@@ -12,7 +12,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-#style
+# style
 gem "font-awesome-rails"
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 
@@ -21,10 +21,11 @@ gem 'omniauth'
 gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-fitbit'
 
-gem 'fitgem'
+# Use rails variables in JS
+gem 'gon'
 
 # API requests
-gem 'httparty'
+gem 'fitgem'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
