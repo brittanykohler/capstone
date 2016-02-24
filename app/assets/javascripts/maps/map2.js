@@ -23,7 +23,7 @@ function initialize() {
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     origins = [
-      "119 Harvard Ave E Seattle, WA, USA",
+      new google.maps.LatLng(pos.lat, pos.lng)
     ];
 
     destinations = [
