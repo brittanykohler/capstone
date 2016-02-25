@@ -5,6 +5,7 @@ var routeQuery;
 var bounds;
 var panning = false;
 var destinations = new Array();
+var destinationNames = new Array();
 var origins;
 var query;
 
@@ -37,7 +38,9 @@ function initialize() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           place = results[i].geometry.location
+          name = results[i].name
           destinations.push(place);
+          destinationNames.push(name);
         }
         createTable();
         dms = new google.maps.DistanceMatrixService();
@@ -89,7 +92,7 @@ function createTable() {
     tr = addRow(table);
     var td = addElement(tr);
     td.setAttribute("class", "destination");
-    td.appendChild(document.createTextNode(destinations[i]));
+    td.appendChild(document.createTextNode(destinationNames[i]));
     for (var j = 0; j < origins.length; j++) {
       var td = addElement(tr, 'element-' + j + '-' + i);
       td.onmouseover = getRouteFunction(j,i);
