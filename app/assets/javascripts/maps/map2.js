@@ -37,7 +37,7 @@ function initialize() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           place = results[i].geometry.location
-          // destinations.push(place);
+          destinations.push(place);
         }
         createTable();
         dms = new google.maps.DistanceMatrixService();
@@ -61,7 +61,7 @@ function initialize() {
 function updateMatrix() {
   var query = {
     origins: origins,
-    destinations: [new google.maps.LatLng(47.621908, -122.351625)],
+    destinations: destinations,
     travelMode: "WALKING",
     unitSystem: 1
     // travelMode: google.maps.TravelMode.WALKING,
