@@ -26,7 +26,6 @@ function initialize() {
     origins = [
       new google.maps.LatLng(pos.lat, pos.lng)
     ];
-    // destinations = [new google.maps.LatLng(47.621908, -122.351625)];
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
       location: pos,
@@ -42,7 +41,7 @@ function initialize() {
           destinations.push(place);
           destinationNames.push(name);
         }
-        createTable();
+        // createTable();
         dms = new google.maps.DistanceMatrixService();
 
         dirService = new google.maps.DirectionsService();
@@ -72,10 +71,16 @@ function updateMatrix() {
   };
   dms.getDistanceMatrix(query, function(response, status) {
       if (status == "OK") {
+        sortDestinations(response.rows);
+        createTable();
         populateTable(response.rows);
       }
     }
   );
+}
+
+function sortDestinations(rows) {
+  
 }
 
 function createTable() {
