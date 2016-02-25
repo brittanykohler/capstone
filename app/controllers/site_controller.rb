@@ -11,6 +11,7 @@ class SiteController < ApplicationController
       # distance in meters
       @distance_needed = @steps_needed * current_user.stride_length_walking.to_f / 100
       gon.distance_needed = @distance_needed
+      gon.stride_length_walking = current_user.stride_length_walking
     end
   end
 end

@@ -26,7 +26,7 @@ function initialize() {
     origins = [
       new google.maps.LatLng(pos.lat, pos.lng)
     ];
-    destinations = [new google.maps.LatLng(47.621908, -122.351625)];
+    // destinations = [new google.maps.LatLng(47.621908, -122.351625)];
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
       location: pos,
@@ -85,7 +85,7 @@ function createTable() {
   for (var j = 0; j < origins.length; j++) {
     var td = addElement(tr);
     td.setAttribute("class", "origin");
-    td.appendChild(document.createTextNode(origins[j]));
+    td.appendChild(document.createTextNode("Info"));
   }
 
   for (var i = 0; i < destinations.length; i++) {
@@ -106,8 +106,10 @@ function populateTable(rows) {
     for (var j = 0; j < rows[i].elements.length; j++) {
       var distance = rows[i].elements[j].distance.text;
       var duration = rows[i].elements[j].duration.text;
+      var steps = (rows[i].elements[j].distance.value * 100) / gon.stride_length_walking;
+      steps = Math.round(steps);
       var td = document.getElementById('element-' + i + '-' + j);
-      td.innerHTML = distance + "<br/>" + duration;
+      td.innerHTML = distance + "<br/>" + duration + "<br/>" + steps + " steps";
     }
   }
 }
