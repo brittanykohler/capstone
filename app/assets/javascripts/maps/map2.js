@@ -41,19 +41,20 @@ function initialize() {
 
     function callback(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          place = results[i].geometry.location
-          // service.getDetails(results[i], function(result, status) {
-          //   console.log("detail search result:", result);
-          //   if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          //     console.error(status);
-          //     return;
-          //   }
-          //   name = result.name
-          // });
-          destinationsHigh.push(place);
-          // destinationNames.push(name);
-        }
+        // for (var i = 0; i < results.length; i++) {
+        //   place = results[i].geometry.location
+        //   // service.getDetails(results[i], function(result, status) {
+        //   //   console.log("detail search result:", result);
+        //   //   if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        //   //     console.error(status);
+        //   //     return;
+        //   //   }
+        //   //   name = result.name
+        //   // });
+        //   destinationsHigh.push(place);
+        //   // destinationNames.push(name);
+        // }
+        destinationsHigh = results;
         console.log("destinationsHigh", destinationsHigh)
         if (destinationsLow.length > 0) {
           destinations = intersection(destinationsLow, destinationsHigh);
@@ -70,19 +71,20 @@ function initialize() {
 
     function callback2(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          place = results[i].geometry.location
-          // service.getDetails(results[i], function(result, status) {
-          //   console.log("detail search result:", result);
-          //   if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          //     console.error(status);
-          //     return;
-          //   }
-          //   name = result.name
-          // });
-          destinationsLow.push(place);
-          // destinationNames.push(name);
-        }
+        // for (var i = 0; i < results.length; i++) {
+        //   place = results[i].geometry.location
+        //   // service.getDetails(results[i], function(result, status) {
+        //   //   console.log("detail search result:", result);
+        //   //   if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        //   //     console.error(status);
+        //   //     return;
+        //   //   }
+        //   //   name = result.name
+        //   // });
+        //   destinationsLow.push(place);
+        //   // destinationNames.push(name);
+        // }
+        destinationsLow = results;
         console.log("destinationsLow", destinationsLow)
         if (destinationsHigh.length > 0) {
           destinations = intersection(destinationsLow, destinationsHigh);
@@ -92,9 +94,26 @@ function initialize() {
   });
 }
 
+// Get places in
 function intersection(arr1, arr2) {
+
   console.log("running intersection function");
-  return _.intersection(arr1, arr2);
+  var intersect = new Array();
+
+  for (var i = 0; i < arr2.length; i++) {
+    var unique = true;
+    for (var j = 0; j < arr1.length; j++) {
+      if (arr1[j].place_id == arr2[i].place_id) {
+        unique = false;
+        // break;
+      }
+    }
+    if (unique) {
+      intersect.push(arr2[i]);
+    }
+  }
+  console.log(intersect);
+  return intersect;
 }
 
 // createTable();
