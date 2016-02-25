@@ -30,8 +30,9 @@ function initialize() {
       new google.maps.LatLng(pos.lat, pos.lng)
     ];
 
-    // Search for places that are +15% of distance needed
     var service = new google.maps.places.PlacesService(map);
+
+    // Search for places that are +15% of distance needed
     service.radarSearch({
       location: pos,
       radius: (gon.distance_needed * 1.15),
@@ -39,7 +40,6 @@ function initialize() {
     }, callback);
 
     function callback(results, status) {
-      console.log("radar search results", results);
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           place = results[i].geometry.location
@@ -55,8 +55,9 @@ function initialize() {
           // destinationNames.push(name);
         }
         console.log("destinationsHigh", destinationsHigh)
-
-        // updateMatrix();
+        if (destinationsLow.length > 0) {
+          destinations = intersection(destinationsLow, destinationsHigh);
+        }
       }
     }
 
@@ -68,7 +69,6 @@ function initialize() {
     }, callback2);
 
     function callback2(results, status) {
-      console.log("radar search results", results);
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           place = results[i].geometry.location
@@ -84,13 +84,17 @@ function initialize() {
           // destinationNames.push(name);
         }
         console.log("destinationsLow", destinationsLow)
-
-        // updateMatrix();
+        if (destinationsHigh.length > 0) {
+          destinations = intersection(destinationsLow, destinationsHigh);
+        }
       }
     }
-    var both = _.intersection(destinationsHigh, destinationsLow);
-    console.log(both);
   });
+}
+
+function intersection(arr1, arr2) {
+  console.log("running intersection function");
+  return _.intersection(arr1, arr2);
 }
 
 // createTable();
