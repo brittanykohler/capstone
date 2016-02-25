@@ -4,7 +4,7 @@ var highlightedCell;
 var routeQuery;
 var bounds;
 var panning = false;
-var destinations;
+var destinations = new Array();
 var origins;
 var query;
 
@@ -25,41 +25,49 @@ function initialize() {
     origins = [
       new google.maps.LatLng(pos.lat, pos.lng)
     ];
+    destinations = [new google.maps.LatLng(47.621908, -122.351625)];
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+      location: pos,
+      radius: gon.distance_needed,
+      // types: ['store']
+    }, callback);
 
-    destinations = [
-      new google.maps.LatLng(47.621908, -122.351625)
-    ];
+    function callback(results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          place = results[i].geometry.location
+          // destinations.push(place);
+        }
+        createTable();
+        dms = new google.maps.DistanceMatrixService();
 
-    createTable();
-    dms = new google.maps.DistanceMatrixService();
+        dirService = new google.maps.DirectionsService();
+        dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+        dirRenderer.setMap(map);
 
-    dirService = new google.maps.DirectionsService();
-    dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
-    dirRenderer.setMap(map);
-
-    google.maps.event.addListener(map, 'idle', function() {
-      if (panning) {
-        map.fitBounds(bounds);
-        panning = false;
+        google.maps.event.addListener(map, 'idle', function() {
+          if (panning) {
+            map.fitBounds(bounds);
+            panning = false;
+          }
+        });
+        updateMatrix();
       }
-    });
-      updateMatrix();
+    }
   });
 }
 
 function updateMatrix() {
   var query = {
     origins: origins,
-    destinations: destinations,
+    destinations: [new google.maps.LatLng(47.621908, -122.351625)],
     travelMode: "WALKING",
     unitSystem: 1
     // travelMode: google.maps.TravelMode.WALKING,
     // unitSystem: google.maps.UnitSystem.IMPERIAL
   };
-
   dms.getDistanceMatrix(query, function(response, status) {
-    console.log(response);
-    console.log(status);
       if (status == "OK") {
         populateTable(response.rows);
       }
@@ -78,7 +86,7 @@ function createTable() {
   }
 
   for (var i = 0; i < origins.length; i++) {
-    var tr = addRow(table);
+    tr = addRow(table);
     var td = addElement(tr);
     td.setAttribute("class", "origin");
     td.appendChild(document.createTextNode(origins[i]));

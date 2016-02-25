@@ -72,6 +72,7 @@ function getDistance(place) {
     }, callback);
   function callback(response, status) {
     // return response.rows[0].elements[0].distance.value;
+    console.log("hi");
     distance = response.rows[0].elements[0].distance.value;
   }
   console.log(distance);
