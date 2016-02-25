@@ -79,21 +79,21 @@ function createTable() {
   var table = document.getElementById('matrix');
   var tr = addRow(table);
   addElement(tr);
-  for (var j = 0; j < destinations.length; j++) {
-    var td = addElement(tr);
-    td.setAttribute("class", "destination");
-    td.appendChild(document.createTextNode(destinations[j]));
-  }
-
-  for (var i = 0; i < origins.length; i++) {
-    tr = addRow(table);
+  for (var j = 0; j < origins.length; j++) {
     var td = addElement(tr);
     td.setAttribute("class", "origin");
-    td.appendChild(document.createTextNode(origins[i]));
-    for (var j = 0; j < destinations.length; j++) {
-      var td = addElement(tr, 'element-' + i + '-' + j);
-      td.onmouseover = getRouteFunction(i,j);
-      td.onclick = getRouteFunction(i,j);
+    td.appendChild(document.createTextNode(origins[j]));
+  }
+
+  for (var i = 0; i < destinations.length; i++) {
+    tr = addRow(table);
+    var td = addElement(tr);
+    td.setAttribute("class", "destination");
+    td.appendChild(document.createTextNode(destinations[i]));
+    for (var j = 0; j < origins.length; j++) {
+      var td = addElement(tr, 'element-' + j + '-' + i);
+      td.onmouseover = getRouteFunction(j,i);
+      td.onclick = getRouteFunction(j,i);
     }
   }
 }
