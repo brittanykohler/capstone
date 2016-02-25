@@ -88,7 +88,7 @@ function initialize() {
         // updateMatrix();
       }
     }
-    var both = _.(destinationsHigh, destinationsLow);
+    var both = _.intersection(destinationsHigh, destinationsLow);
     console.log(both);
   });
 }
