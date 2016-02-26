@@ -95,7 +95,7 @@ function listPlaces() {
   // query limit is 10 per second
 
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 1; i++) {
     // var name = getName(destinations[i], i, addPlace);
     // var distance = getDistance(destinations[i], i, addDistance);
     // var steps = getSteps(destinations[i], i, addSteps)
@@ -194,7 +194,7 @@ function getRouteFunction(j) {
   // return function() {
     routeQuery = {
       origin: origins[0],
-      destination: destinations[j],
+      destination: new google.maps.LatLng(destinations[j].geometry.location.lat(), destinations[j].geometry.location.lng()),
       travelMode: query.travelMode,
       unitSystem: query.unitSystem,
     };
