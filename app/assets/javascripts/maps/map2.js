@@ -92,31 +92,41 @@ function intersection(arr1, arr2) {
 function listPlaces() {
   // query limit is 10 per second
   for (var i = 0; i < 10; i++) {
-    var name = getName(destinations[i], addPlace);
-    var distance = getDistance(destinations[i]);
+    var name = getName(destinations[i], i, addPlace);
+    var distance = getDistance(destinations[i], i, addDistance);
+    var steps = getSteps(destinations[i], i, addSteps)
   }
 }
 
-function addPlace(name) {
-  $(".places").append("<p>" + name + "</p>");
+function addPlace(name, id) {
+  $(".places").append("<p class='" + id + "'>" + name + "</p>");
 }
 
-function getName(place, callback2) {
+function addDistance(distance, id) {
+  $("." + id).append("<span> distance: " + distance + "</span>");
+}
+
+function addSteps(steps, id) {
+  $("." + id).append("<span> steps: " + steps / gon.stride_length_walking + "</span>");
+}
+
+function getName(place, id, callback2) {
   var name;
   var service = new google.maps.places.PlacesService(map);
   var request = {
     placeId: place.place_id
   };
   service.getDetails(request, callback);
+
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       name = place.name;
-      callback2(name);
+      callback2(name, id);
     }
   }
 }
 
-function getDistance(place) {
+function getDistance(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
   var distance;
   var query = {
@@ -131,10 +141,30 @@ function getDistance(place) {
     // console.log("distance matrix", status);
     if (status == "OK") {
       distance = response.rows[0].elements[0].distance.text;
+      callback2(distance, id);
       console.log(distance);
     }
   });
-  return distance;
+}
+
+function getSteps(place, id, callback2) {
+  dms = new google.maps.DistanceMatrixService();
+  var steps;
+  var query = {
+    origins: origins,
+    destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
+    travelMode: "WALKING",
+    unitSystem: 1
+    // travelMode: google.maps.TravelMode.WALKING,
+    // unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+  dms.getDistanceMatrix(query, function(response, status) {
+    // console.log("distance matrix", status);
+    if (status == "OK") {
+      steps = response.rows[0].elements[0].distance.value;
+      callback2(steps, id);
+    }
+  });
 }
 
 // createTable();
