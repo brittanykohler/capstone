@@ -34,6 +34,7 @@ function initialize() {
     var service = new google.maps.places.PlacesService(map);
 
     // Search for places that are +15% of distance needed
+    console.log("before search")
     service.radarSearch({
       location: pos,
       radius: (gon.distance_needed * 1.05),
@@ -41,6 +42,7 @@ function initialize() {
     }, callback);
 
     function callback(results, status) {
+      console.log(status)
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsHigh = results;
         if (destinationsLow.length > 0) {
@@ -53,16 +55,16 @@ function initialize() {
     // Search for places that are -15% of distance needed
     service.radarSearch({
       location: pos,
-      radius: (gon.distance_needed * .75),
+      radius: (gon.distance_needed * .70),
       keyword: 'park'
     }, callback2);
 
     function callback2(results, status) {
+        console.log(status)
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsLow = results;
         if (destinationsHigh.length > 0) {
           destinations = getComplement(destinationsLow, destinationsHigh);
-          // console.log("destinations", destinations);
           listPlaces();
         }
       }
@@ -91,22 +93,35 @@ function getComplement(arr1, arr2) {
 
 function listPlaces() {
   // query limit is 10 per second
+
+
   for (var i = 0; i < 10; i++) {
-    var name = getName(destinations[i], i, addPlace);
-    var distance = getDistance(destinations[i], i, addDistance);
-    var steps = getSteps(destinations[i], i, addSteps)
+    // var name = getName(destinations[i], i, addPlace);
+    // var distance = getDistance(destinations[i], i, addDistance);
+    // var steps = getSteps(destinations[i], i, addSteps)
+    getName(destinations[i], i, function(name, id) {
+      addPlace(name, id);
+      getDistance(destinations[id], id, addDistance);
+      getSteps(destinations[id], id, addSteps);
+    });
   }
 }
 
 function addPlace(name, id) {
+  console.log(id)
   $(".places").append("<p class='" + id + "'>" + name + "</p>");
+  $("." + id).click(function() {
+    getRouteFunction(id);
+  });
 }
 
 function addDistance(distance, id) {
+  console.log(id)
   $("." + id).append("<span> distance: " + distance + "</span>");
 }
 
 function addSteps(distanceMeters, id) {
+  console.log(id)
   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
   $("." + id).append("<span> steps: " + steps + "</span>");
 }
@@ -125,6 +140,7 @@ function getName(place, id, callback2) {
       callback2(name, id);
     }
   }
+
 }
 
 function getDistance(place, id, callback2) {
@@ -139,11 +155,9 @@ function getDistance(place, id, callback2) {
     // unitSystem: google.maps.UnitSystem.IMPERIAL
   };
   dms.getDistanceMatrix(query, function(response, status) {
-    // console.log("distance matrix", status);
     if (status == "OK") {
       distance = response.rows[0].elements[0].distance.text;
       callback2(distance, id);
-      console.log(distance);
     }
   });
 }
@@ -160,13 +174,54 @@ function getSteps(place, id, callback2) {
     // unitSystem: google.maps.UnitSystem.IMPERIAL
   };
   dms.getDistanceMatrix(query, function(response, status) {
-    // console.log("distance matrix", status);
     if (status == "OK") {
       distanceMeters = response.rows[0].elements[0].distance.value;
       callback2(distanceMeters, id);
     }
   });
 }
+
+function getRouteFunction(j) {
+  console.log("getting route");
+  var query = {
+    origins: origins,
+    destinations: destinations,
+    travelMode: "WALKING",
+    unitSystem: 1
+    // travelMode: google.maps.TravelMode.WALKING,
+    // unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+  // return function() {
+    routeQuery = {
+      origin: origins[0],
+      destination: destinations[j],
+      travelMode: query.travelMode,
+      unitSystem: query.unitSystem,
+    };
+    showRoute();
+  // };
+}
+
+function showRoute() {
+  dirService = new google.maps.DirectionsService();
+  dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+  dirRenderer.setMap(map);
+
+  console.log("showing route");
+  dirService.route(routeQuery, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      dirRenderer.setDirections(result);
+      bounds = new google.maps.LatLngBounds();
+      bounds.extend(result.routes[0].overview_path[0]);
+      var k = result.routes[0].overview_path.length;
+      bounds.extend(result.routes[0].overview_path[k-1]);
+      panning = true;
+      map.panTo(bounds.getCenter());
+    }
+  });
+}
+
+
 
 // createTable();
 // dms = new google.maps.DistanceMatrixService();
