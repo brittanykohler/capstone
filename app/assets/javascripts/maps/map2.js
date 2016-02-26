@@ -95,7 +95,7 @@ function listPlaces() {
   // query limit is 10 per second
 
 
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 10; i++) {
     // var name = getName(destinations[i], i, addPlace);
     // var distance = getDistance(destinations[i], i, addDistance);
     // var steps = getSteps(destinations[i], i, addSteps)
@@ -206,6 +206,12 @@ function showRoute() {
   dirService = new google.maps.DirectionsService();
   dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   dirRenderer.setMap(map);
+  google.maps.event.addListener(map, 'idle', function() {
+    if (panning) {
+      map.fitBounds(bounds);
+      panning = false;
+    }
+  });
 
   console.log("showing route");
   dirService.route(routeQuery, function(result, status) {
