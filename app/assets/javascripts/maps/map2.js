@@ -93,12 +93,7 @@ function getComplement(arr1, arr2) {
 
 function listPlaces() {
   // query limit is 10 per second
-
-
   for (var i = 0; i < 10; i++) {
-    // var name = getName(destinations[i], i, addPlace);
-    // var distance = getDistance(destinations[i], i, addDistance);
-    // var steps = getSteps(destinations[i], i, addSteps)
     getName(destinations[i], i, function(name, id) {
       addPlace(name, id);
       getDistance(destinations[id], id, addDistance);
@@ -203,8 +198,12 @@ function getRouteFunction(j) {
 }
 
 function showRoute() {
-  dirService = new google.maps.DirectionsService();
-  dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+  if (dirService == null) {
+      dirService = new google.maps.DirectionsService();
+  }
+  if (dirRenderer == null) {
+    dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
+  }
   dirRenderer.setMap(map);
   google.maps.event.addListener(map, 'idle', function() {
     if (panning) {
