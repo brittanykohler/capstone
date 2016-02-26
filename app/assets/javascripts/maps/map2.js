@@ -44,7 +44,7 @@ function initialize() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsHigh = results;
         if (destinationsLow.length > 0) {
-          destinations = intersection(destinationsLow, destinationsHigh);
+          destinations = getComplement(destinationsLow, destinationsHigh);
           listPlaces();
         }
       }
@@ -61,7 +61,7 @@ function initialize() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsLow = results;
         if (destinationsHigh.length > 0) {
-          destinations = intersection(destinationsLow, destinationsHigh);
+          destinations = getComplement(destinationsLow, destinationsHigh);
           // console.log("destinations", destinations);
           listPlaces();
         }
@@ -71,8 +71,8 @@ function initialize() {
 }
 
 // Get places that are in between the -15% radius and the +15% radius
-function intersection(arr1, arr2) {
-  var intersect = new Array();
+function getComplement(arr1, arr2) {
+  var complement = new Array();
 
   for (var i = 0; i < arr2.length; i++) {
     var unique = true;
@@ -83,10 +83,10 @@ function intersection(arr1, arr2) {
       }
     }
     if (unique) {
-      intersect.push(arr2[i]);
+      complement.push(arr2[i]);
     }
   }
-  return intersect;
+  return complement;
 }
 
 function listPlaces() {
@@ -106,8 +106,9 @@ function addDistance(distance, id) {
   $("." + id).append("<span> distance: " + distance + "</span>");
 }
 
-function addSteps(steps, id) {
-  $("." + id).append("<span> steps: " + steps / gon.stride_length_walking + "</span>");
+function addSteps(distanceMeters, id) {
+  var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
+  $("." + id).append("<span> steps: " + steps + "</span>");
 }
 
 function getName(place, id, callback2) {
@@ -149,7 +150,7 @@ function getDistance(place, id, callback2) {
 
 function getSteps(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
-  var steps;
+  var distanceMeters;
   var query = {
     origins: origins,
     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
@@ -161,8 +162,8 @@ function getSteps(place, id, callback2) {
   dms.getDistanceMatrix(query, function(response, status) {
     // console.log("distance matrix", status);
     if (status == "OK") {
-      steps = response.rows[0].elements[0].distance.value;
-      callback2(steps, id);
+      distanceMeters = response.rows[0].elements[0].distance.value;
+      callback2(distanceMeters, id);
     }
   });
 }
