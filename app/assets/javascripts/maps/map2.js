@@ -36,7 +36,7 @@ function initialize() {
     // Search for places that are +15% of distance needed
     service.radarSearch({
       location: pos,
-      radius: (gon.distance_needed * 1.15),
+      radius: (gon.distance_needed * 1.05),
       keyword: 'park'
     }, callback);
 
@@ -53,7 +53,7 @@ function initialize() {
     // Search for places that are -15% of distance needed
     service.radarSearch({
       location: pos,
-      radius: (gon.distance_needed * .85),
+      radius: (gon.distance_needed * .75),
       keyword: 'park'
     }, callback2);
 
