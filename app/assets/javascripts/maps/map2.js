@@ -45,7 +45,6 @@ function initialize() {
         destinationsHigh = results;
         if (destinationsLow.length > 0) {
           destinations = intersection(destinationsLow, destinationsHigh);
-          // console.log("destinations", destinations);
           listPlaces();
         }
       }
@@ -94,6 +93,7 @@ function listPlaces() {
   // query limit is 10 per second
   for (var i = 0; i < 10; i++) {
     var name = getName(destinations[i], addPlace);
+    var distance = getDistance(destinations[i]);
   }
 }
 
@@ -111,12 +111,30 @@ function getName(place, callback2) {
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       name = place.name;
-      console.log(name);
       callback2(name);
     }
   }
-  console.log(name);
-  return name;
+}
+
+function getDistance(place) {
+  dms = new google.maps.DistanceMatrixService();
+  var distance;
+  var query = {
+    origins: origins,
+    destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
+    travelMode: "WALKING",
+    unitSystem: 1
+    // travelMode: google.maps.TravelMode.WALKING,
+    // unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+  dms.getDistanceMatrix(query, function(response, status) {
+    // console.log("distance matrix", status);
+    if (status == "OK") {
+      distance = response.rows[0].elements[0].distance.text;
+      console.log(distance);
+    }
+  });
+  return distance;
 }
 
 // createTable();
