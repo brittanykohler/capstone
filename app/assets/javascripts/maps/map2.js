@@ -69,7 +69,6 @@ function initialize() {
         }
       }
     }
-    console.log("here")
   });
 }
 
