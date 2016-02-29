@@ -13,16 +13,6 @@
   </div>
   <div id="container">
     <div id="map"></div>
-    <!-- <div id="controls">
-      <select id="mode" onChange="updateMode()">
-        <option value="driving">Driving</option>
-        <option value="walking" selected="selected">Walking</option>
-      </select><br/>
-      <select id="units" onChange="updateUnits()">
-        <option value="km">Kilometers</option>
-        <option value="mi" selected="selected">Miles</option>
-      </select>
-    </div> -->
     <table id="matrix"></table>
     <div class="places"></div>
   </div>
@@ -30,5 +20,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places" async defer></script>
   <%= link_to "log out", signout_path %>
 <% else %>
-  <%= link_to "log in", "/auth/fitbit" %>
+  <div id="login-image">
+    <%= link_to "log in", "/auth/fitbit" %>
+  </div>
 <% end %>

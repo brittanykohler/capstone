@@ -1,3 +1,22 @@
 // Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#login-image {
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  text-align: center;
+  background: url(shoes.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#login-image a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 48px;
+}

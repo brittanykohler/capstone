@@ -37,7 +37,7 @@ function initialize() {
     console.log("before search")
     service.radarSearch({
       location: pos,
-      radius: (gon.distance_needed * 1.05),
+      radius: (gon.distance_needed * 1),
       keyword: 'park'
     }, callback);
 
