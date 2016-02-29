@@ -16,11 +16,13 @@
     <table id="matrix"></table>
     <div class="places"></div>
   </div>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?&callback=initialize" async defer></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places" async defer></script>
+  <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?&callback=initialize" async defer></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script>
   <%= link_to "log out", signout_path %>
 <% else %>
   <div id="login-image">
-    <%= link_to "log in", "/auth/fitbit" %>
+    <div id="login-link">
+      <%= link_to "log in", "/auth/fitbit" %>
+    </div>
   </div>
 <% end %>
