@@ -181,7 +181,7 @@ function getRouteFunction(j) {
   var query = {
     origins: origins,
     destinations: destinations,
-    travelMode: "WALKING",
+    travelMode: google.maps.TravelMode.WALKING,
     unitSystem: 1
     // travelMode: google.maps.TravelMode.WALKING,
     // unitSystem: google.maps.UnitSystem.IMPERIAL
@@ -190,7 +190,7 @@ function getRouteFunction(j) {
     routeQuery = {
       origin: origins[0],
       destination: new google.maps.LatLng(destinations[j].geometry.location.lat(), destinations[j].geometry.location.lng()),
-      travelMode: query.travelMode,
+      travelMode: google.maps.TravelMode.WALKING,
       unitSystem: query.unitSystem,
     };
     showRoute();
