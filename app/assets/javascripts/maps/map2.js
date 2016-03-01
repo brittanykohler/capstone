@@ -33,7 +33,7 @@ function initialize() {
 
     var service = new google.maps.places.PlacesService(map);
 
-    // Search for places that are +15% of distance needed
+    // Search for places that are ~distance needed
     console.log("before search");
     service.radarSearch({
       location: pos,
@@ -52,7 +52,7 @@ function initialize() {
       }
     }
 
-    // Search for places that are -15% of distance needed
+    // Search for places that are less than distance needed
     service.radarSearch({
       location: pos,
       radius: (gon.distance_needed * 0.70),
@@ -93,10 +93,10 @@ function getComplement(arr1, arr2) {
 
 function listPlaces() {
   // query limit is 10 per second
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 5; i++) {
     getName(destinations[i], i, function(name, id) {
       addPlace(name, id);
-      getDistance(destinations[id], id, addDistance);
+      // getDistance(destinations[id], id, addDistance);
       getSteps(destinations[id], id, addSteps);
     });
   }
@@ -104,21 +104,19 @@ function listPlaces() {
 
 function addPlace(name, id) {
   console.log(id);
-  $(".places").append("<p class='" + id + "'>" + name + "</p>");
-  $("." + id).click(function() {
+  $(".places").append("<p class='place" + id + " place-box'>" + name + "</p>");
+  $(".place" + id).click(function() {
     getRouteFunction(id);
   });
 }
 
 function addDistance(distance, id) {
-  console.log(id);
-  $("." + id).append("<span> distance: " + distance + "</span>");
+  $(".place" + id).append("<span> distance: " + distance + "</span>");
 }
 
 function addSteps(distanceMeters, id) {
-  console.log(id);
   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
-  $("." + id).append("<span> steps: " + steps + "</span>");
+  $(".place" + id).append("<span> steps: " + steps + "</span>");
 }
 
 function getName(place, id, callback2) {
@@ -181,15 +179,20 @@ function getRouteFunction(j) {
     // travelMode: google.maps.TravelMode.WALKING,
     // unitSystem: google.maps.UnitSystem.IMPERIAL
   };
-  // return function() {
-    routeQuery = {
-      origin: origins[0],
-      destination: new google.maps.LatLng(destinations[j].geometry.location.lat(), destinations[j].geometry.location.lng()),
-      travelMode: google.maps.TravelMode.WALKING,
-      unitSystem: query.unitSystem,
-    };
-    showRoute();
-  // };
+  routeQuery = {
+    origin: origins[0],
+    destination: new google.maps.LatLng(destinations[j].geometry.location.lat(), destinations[j].geometry.location.lng()),
+    travelMode: google.maps.TravelMode.WALKING,
+    unitSystem: query.unitSystem,
+  };
+  if (highlightedCell) {
+    highlightedCell.removeClass("highlighted-cell");
+  }
+  highlightedCell = $('.place' + j);
+  console.log('place' + j);
+  console.log(highlightedCell);
+  highlightedCell.addClass("highlighted-cell");
+  showRoute();
 }
 
 function showRoute() {
