@@ -8,7 +8,7 @@
   min-height: 100%;
   min-width: 100%;
   text-align: center;
-  background: url(shoes.png) no-repeat center center fixed;
+  background: url(shoes2.jpeg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -19,11 +19,25 @@
   color: #FFFFFF;
   text-decoration: none;
   font-size: 48px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+#app-logo {
+  color: #FFFFFF;
+  font-size: 128px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 10%
+}
+
+#login-image a:hover {
+  color: #666666;
 }
 
 #login-link {
   width: 200px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30%
+  margin-top: 5%;
+  border-style: dotted;
+  border-color: #FFFFFF;
 }
