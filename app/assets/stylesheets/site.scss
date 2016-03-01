@@ -4,6 +4,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
  //------ Login Page Styles-----------------
 #login-image {
   position: absolute;
@@ -69,3 +75,25 @@
 //------ End Login Page Styles -----------------
 
 //------ Dashboard Page Styles -----------------
+
+#map {
+  width: 100%;
+  height:300px;
+  // border: 1px solid grey;
+}
+
+.logout-link a {
+  float: right;
+  color: #000000;
+}
+
+.logout-link a:hover {
+  float: right;
+  color: #bfbfbf;
+  text-decoration: none;
+}
+
+#logo {
+  font-family: 'Raleway', sans-serif;
+  font-size: 22px;
+}
