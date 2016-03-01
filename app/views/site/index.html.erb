@@ -13,9 +13,13 @@
       <%= link_to "log out", signout_path %>
     </div>
   </div>
-  <div class="col-xs-8">
-      STEPS: <%= @current_steps %> / <%= @step_goal %>
+  <hr>
+  <div class="row">
+    <div class="col-xs-8">
+        STEPS: <%= @current_steps %> / <%= @step_goal %>
+    </div>
   </div>
+
   <!-- <div>
     Steps needed to reach goal: <%= @steps_needed %>
     Distance needed to reach goal: <%= @distance_needed %> meters
@@ -27,7 +31,7 @@
     <div class="places"></div>
   </div>
   <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?&callback=initialize" async defer></script> -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script>
 
 <% else %>
   <div id="login-image">

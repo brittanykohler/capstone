@@ -122,7 +122,6 @@ function addSteps(distanceMeters, id) {
 }
 
 function getName(place, id, callback2) {
-  var name;
   var service = new google.maps.places.PlacesService(map);
   var request = {
     placeId: place.place_id
@@ -131,16 +130,13 @@ function getName(place, id, callback2) {
 
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      name = place.name;
-      callback2(name, id);
+      callback2(place.name, id);
     }
   }
-
 }
 
 function getDistance(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
-  var distance;
   var query = {
     origins: origins,
     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
@@ -151,7 +147,7 @@ function getDistance(place, id, callback2) {
   };
   dms.getDistanceMatrix(query, function(response, status) {
     if (status == "OK") {
-      distance = response.rows[0].elements[0].distance.text;
+      var distance = response.rows[0].elements[0].distance.text;
       callback2(distance, id);
     }
   });
@@ -159,7 +155,6 @@ function getDistance(place, id, callback2) {
 
 function getSteps(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
-  var distanceMeters;
   var query = {
     origins: origins,
     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
@@ -170,7 +165,7 @@ function getSteps(place, id, callback2) {
   };
   dms.getDistanceMatrix(query, function(response, status) {
     if (status == "OK") {
-      distanceMeters = response.rows[0].elements[0].distance.value;
+      var distanceMeters = response.rows[0].elements[0].distance.value;
       callback2(distanceMeters, id);
     }
   });
