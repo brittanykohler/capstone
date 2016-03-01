@@ -4,10 +4,10 @@ var highlightedCell;
 var routeQuery;
 var bounds;
 var panning = false;
-var destinations = new Array();
-var destinationsHigh = new Array();
-var destinationsLow = new Array();
-var destinationNames = new Array();
+var destinations = [];
+var destinationsHigh = [];
+var destinationsLow = [];
+var destinationNames = [];
 var origins;
 var query;
 
@@ -19,7 +19,7 @@ function initialize() {
     pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
-    }
+    };
     var mapOptions = {
       zoom: 15,
       center: pos,
@@ -34,7 +34,7 @@ function initialize() {
     var service = new google.maps.places.PlacesService(map);
 
     // Search for places that are +15% of distance needed
-    console.log("before search")
+    console.log("before search");
     service.radarSearch({
       location: pos,
       radius: (gon.distance_needed * 1),
@@ -42,7 +42,7 @@ function initialize() {
     }, callback);
 
     function callback(results, status) {
-      console.log(status)
+      console.log(status);
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsHigh = results;
         if (destinationsLow.length > 0) {
@@ -55,12 +55,12 @@ function initialize() {
     // Search for places that are -15% of distance needed
     service.radarSearch({
       location: pos,
-      radius: (gon.distance_needed * .70),
+      radius: (gon.distance_needed * 0.70),
       keyword: 'park'
     }, callback2);
 
     function callback2(results, status) {
-        console.log(status)
+        console.log(status);
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         destinationsLow = results;
         if (destinationsHigh.length > 0) {
@@ -74,7 +74,7 @@ function initialize() {
 
 // Get places that are in between the -15% radius and the +15% radius
 function getComplement(arr1, arr2) {
-  var complement = new Array();
+  var complement = [];
 
   for (var i = 0; i < arr2.length; i++) {
     var unique = true;
@@ -103,7 +103,7 @@ function listPlaces() {
 }
 
 function addPlace(name, id) {
-  console.log(id)
+  console.log(id);
   $(".places").append("<p class='" + id + "'>" + name + "</p>");
   $("." + id).click(function() {
     getRouteFunction(id);
@@ -111,12 +111,12 @@ function addPlace(name, id) {
 }
 
 function addDistance(distance, id) {
-  console.log(id)
+  console.log(id);
   $("." + id).append("<span> distance: " + distance + "</span>");
 }
 
 function addSteps(distanceMeters, id) {
-  console.log(id)
+  console.log(id);
   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
   $("." + id).append("<span> steps: " + steps + "</span>");
 }
@@ -198,10 +198,10 @@ function getRouteFunction(j) {
 }
 
 function showRoute() {
-  if (dirService == null) {
+  if (dirService === null) {
       dirService = new google.maps.DirectionsService();
   }
-  if (dirRenderer == null) {
+  if (dirRenderer === null) {
     dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   }
   dirRenderer.setMap(map);
