@@ -1,8 +1,10 @@
 // Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
-
+ //------ Login Page Styles-----------------
 #login-image {
   position: absolute;
   min-height: 100%;
@@ -19,23 +21,51 @@
 #login-image a {
   color: #FFFFFF;
   text-decoration: none;
-  font-size: 48px;
+  font-size: 40px;
   font-family: 'Quicksand', sans-serif;
 }
 
 #app-logo {
   color: #FFFFFF;
-  font-size: 128px;
+  font-size: 84px;
   font-family: 'Quicksand', sans-serif;
   margin-top: 10%
 }
 
 
 #login-link {
-  width: 200px;
+  width: 160px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+  margin-top: 20%;
   border-style: dotted;
   border-color: #FFFFFF;
 }
+
+// desktop
+@media (min-width: 600px) {
+  #app-logo {
+    font-size: 128px;
+  }
+
+  #login-image a {
+    font-size: 48px;
+  }
+
+  #login-link {
+    width: 180px;
+  }
+}
+
+@media (orientation: landscape) {
+  #login-link {
+    margin-top: 5%;
+  }
+
+  #app-logo {
+    margin-top: 5%
+  }
+}
+//------ End Login Page Styles -----------------
+
+//------ Dashboard Page Styles -----------------

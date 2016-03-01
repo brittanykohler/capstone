@@ -2,8 +2,18 @@
 <script> src="app/javascripts/maps/map2.js"</script>
 
 <% if logged_in? %>
-  Hi <%= current_user.name %>
-  <div>
+  <div class="row">
+    <div class="col-xs-4">
+      Hi <%= current_user.name %>
+    </div>
+    <div class="col-xs-4">
+      <h1>Fit Trip</h1>
+    </div>
+    <div class="col-xs-4">
+      <%= link_to "log out", signout_path %>
+    </div>
+  </div>
+  <div class="col-xs-4">
       Current steps: <%= @current_steps %> / <%= @step_goal %>
   </div>
   <div>
@@ -18,7 +28,7 @@
   </div>
   <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?&callback=initialize" async defer></script> -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script>
-  <%= link_to "log out", signout_path %>
+
 <% else %>
   <div id="login-image">
     <div id="app-logo">
