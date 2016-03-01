@@ -198,10 +198,10 @@ function getRouteFunction(j) {
 }
 
 function showRoute() {
-  if (dirService === null) {
+  if (dirService === undefined) {
       dirService = new google.maps.DirectionsService();
   }
-  if (dirRenderer === null) {
+  if (dirRenderer === undefined) {
     dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   }
   dirRenderer.setMap(map);
