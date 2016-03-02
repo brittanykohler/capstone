@@ -49,7 +49,7 @@ function initialize() {
       return Promise.all([radarSearch(place, 1.15), radarSearch(place, 0.85)]);
     };
 
-    joinedRadarSearch('park').then(function(searchResults) {
+    joinedRadarSearch(gon.place_type).then(function(searchResults) {
       console.log(searchResults);
       var destinations = getComplement(searchResults[0], searchResults[1]);
       listPlaces(destinations);

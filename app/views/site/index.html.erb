@@ -16,29 +16,34 @@
         STEPS: <%= @current_steps %> / <%= @step_goal %>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      Time to meet your step goal. Where would you like to go?
+    </div>
+  </div>
 
-  <div class="row">
-    <div class="col-md-6">
-      hi
+  <div class="row place-choice-row">
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "PARK", results_path("park") %>
     </div>
-    <div class="col-md-6">
-      hi
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      hi
-    </div>
-    <div class="col-md-6">
-      hi
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "MUSEUM", results_path("museum") %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      hi
+  <div class="row place-choice-row">
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "STORE", results_path("store") %>
     </div>
-    <div class="col-md-6">
-      hi
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "SCHOOL", results_path("school") %>
+    </div>
+  </div>
+  <div class="row place-choice-row">
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "RESTAURANT", results_path("restaurant") %>
+    </div>
+    <div class="col-xs-6 place-choice-box">
+      <%= link_to "I DON'T CARE", results_path("random") %>
     </div>
   </div>
 
