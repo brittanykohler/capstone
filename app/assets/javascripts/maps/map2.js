@@ -1,21 +1,16 @@
 var map, dms;
-var dirService, dirRenderer;
+// var dirService,
+var dirRenderer;
 var highlightedCell;
 var routeQuery;
 var bounds;
 var panning = false;
-// var destinations = [];
-var destinationsHigh = [];
-var destinationsLow = [];
-var destinationNames = [];
 var origins;
-var query;
-var pos;
 
 function initialize() {
   // Get current location
   navigator.geolocation.getCurrentPosition(function(position) {
-    pos = {
+    var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
@@ -47,13 +42,11 @@ function initialize() {
             return resolve(results);
           }
         });
-      }
-    );
-
+      });
     };
 
     var joinedRadarSearch = function(place) {
-      return Promise.all([radarSearch(place, 0.95), radarSearch(place, 0.7)]);
+      return Promise.all([radarSearch(place, 1.15), radarSearch(place, 0.85)]);
     };
 
     joinedRadarSearch('park').then(function(searchResults) {
@@ -61,45 +54,6 @@ function initialize() {
       var destinations = getComplement(searchResults[0], searchResults[1]);
       listPlaces(destinations);
     });
-
-
-    // Search for places that are ~distance needed
-    // service.radarSearch({
-    //   location: pos,
-    //   radius: (gon.distance_needed * 0.95),
-    //   keyword: 'park'
-    // }, callback);
-    //
-    // function callback(results, status) {
-    //   console.log(status);
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     destinationsHigh = results;
-    //     if (destinationsLow.length > 0) {
-    //       destinations = getComplement(destinationsLow, destinationsHigh);
-    //       listPlaces();
-    //     } else if (destinationsHigh.length < 5) { // search results too low to fill page
-    //       nearbySearch();
-    //     }
-    //   }
-    // }
-    //
-    // // Search for places that are less than distance needed
-    // service.radarSearch({
-    //   location: pos,
-    //   radius: (gon.distance_needed * 0.70),
-    //   keyword: 'park'
-    // }, callback2);
-    //
-    // function callback2(results, status) {
-    //     console.log(status);
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     destinationsLow = results;
-    //     if (destinationsHigh.length > 0) {
-    //       destinations = getComplement(destinationsLow, destinationsHigh);
-    //       listPlaces();
-    //     }
-    //   }
-    // }
   });
 }
 
@@ -245,12 +199,14 @@ function getRouteFunction(j, destinations) {
 }
 
 function showRoute() {
-  if (dirService === undefined) {
-      dirService = new google.maps.DirectionsService();
-  }
+  // if (dirService === undefined) {
+  //     dirService = new google.maps.DirectionsService();
+  // }
+  var dirService = new google.maps.DirectionsService();
   if (dirRenderer === undefined) {
     dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   }
+  // var dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   dirRenderer.setMap(map);
   google.maps.event.addListener(map, 'idle', function() {
     if (panning) {
