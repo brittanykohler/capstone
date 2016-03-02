@@ -1,0 +1,33 @@
+<script> src="app/javascripts/maps/map2.js"</script>
+
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-xs-4 greeting">
+      Hi, <%= current_user.name %>!
+    </div>
+    <div class="col-xs-4 text-center">
+      <h1 id="logo">FIT TRIP</h1>
+    </div>
+    <div class="col-xs-4 logout-link text-center">
+      <%= link_to "log out", signout_path %>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-8">
+        STEPS: <%= @current_steps %> / <%= @step_goal %>
+    </div>
+  </div>
+
+  <!-- <div>
+    Steps needed to reach goal: <%= @steps_needed %>
+    Distance needed to reach goal: <%= @distance_needed %> meters
+    Distance needed to reach goal: <%= @distance_needed * 0.000621371 %> miles
+  </div> -->
+  <div id="container">
+    <div id="map"></div>
+    <table id="matrix"></table>
+    <div class="places"></div>
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script>
+<% end %>
