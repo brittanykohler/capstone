@@ -33,7 +33,7 @@ function initialize() {
         service.radarSearch({
           location: pos,
           radius: (gon.distance_needed * distanceMultiplier),
-          keyword: place
+          type: place
         }, function(results, status){
           if(status === 'error'){
             return reject(status);
