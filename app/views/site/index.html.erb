@@ -23,28 +23,40 @@
   </div>
 
   <div class="row place-choice-row">
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "PARK", results_path("park") %>
-    </div>
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "MUSEUM", results_path("museum") %>
-    </div>
+    <%= link_to(results_path("park")) do %>
+      <div class="col-xs-6 place-choice-box">
+        PARK
+      </div>
+    <% end %>
+    <%= link_to(results_path("museum")) do %>
+      <div class="col-xs-6 place-choice-box">
+        MUSEUM
+      </div>
+    <% end %>
   </div>
   <div class="row place-choice-row">
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "STORE", results_path("store") %>
-    </div>
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "SCHOOL", results_path("school") %>
-    </div>
+    <%= link_to(results_path("store")) do %>
+      <div class="col-xs-6 place-choice-box">
+        STORE
+      </div>
+    <% end %>
+    <%= link_to(results_path("school")) do %>
+      <div class="col-xs-6 place-choice-box">
+        SCHOOL
+      </div>
+    <% end %>
   </div>
   <div class="row place-choice-row">
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "RESTAURANT", results_path("restaurant") %>
-    </div>
-    <div class="col-xs-6 place-choice-box">
-      <%= link_to "I DON'T CARE", results_path("random") %>
-    </div>
+    <%= link_to(results_path("restaurant")) do %>
+      <div class="col-xs-6 place-choice-box">
+        RESTAURANT
+      </div>
+    <% end %>
+    <%= link_to(results_path("random")) do %>
+      <div class="col-xs-6 place-choice-box">
+        I DON'T CARE
+      </div>
+    <% end %>
   </div>
 
 <% else %>

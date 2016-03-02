@@ -94,6 +94,20 @@ body {
   text-decoration: none;
 }
 
+.start-over-box {
+  margin-left: 0px;
+  text-align: center;
+}
+
+.start-over-box a {
+  color: #000000;
+}
+
+.start-over-box a:hover {
+  color: #bfbfbf;
+  text-decoration: none;
+}
+
 #logo {
   font-family: 'Raleway', sans-serif;
   font-size: 22px;
@@ -136,16 +150,10 @@ hr {
   padding-top: 20px;
 }
 
-.start-over-box {
-  margin-left: 0px;
-  text-align: center;
-}
-
-.start-over-box a {
+.place-choice-row a {
   color: #000000;
 }
 
-.start-over-box a:hover {
-  color: #bfbfbf;
-  text-decoration: none;
+.place-choice-row a:hover div {
+  background-color: #00A9B6;
 }
