@@ -34,7 +34,6 @@ function initialize() {
     var service = new google.maps.places.PlacesService(map);
 
     // Search for places that are ~distance needed
-    console.log("before search");
     service.radarSearch({
       location: pos,
       radius: (gon.distance_needed * 1),
@@ -47,6 +46,9 @@ function initialize() {
         destinationsHigh = results;
         if (destinationsLow.length > 0) {
           destinations = getComplement(destinationsLow, destinationsHigh);
+          listPlaces();
+        } else if (destinationsLow.length === 0 && destinationsHigh.length === 0) {
+          destinations = nearbySearch();
           listPlaces();
         }
       }
@@ -66,13 +68,32 @@ function initialize() {
         if (destinationsHigh.length > 0) {
           destinations = getComplement(destinationsLow, destinationsHigh);
           listPlaces();
+        } else if (destinationsLow.length === 0 && destinationsHigh.length === 0) {
+          destinations = nearbySearch();
+          listPlaces();
         }
       }
     }
   });
 }
 
-// Get places that are in between the -15% radius and the +15% radius
+// Use nearby search if radar search returns no results
+function nearbySearch() {
+  console.log("nearby search");
+  service.nearbySearch({
+    location: pos,
+    radius: gon.distance_needed,
+  }, parseResults);
+}
+
+function parseResults(results, status) {
+  console.log(results);
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    destinations = results;
+  }
+}
+
+// Get places that are in between the smaller radius and the larger radius
 function getComplement(arr1, arr2) {
   var complement = [];
 
