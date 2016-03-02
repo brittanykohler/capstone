@@ -4,7 +4,7 @@ var highlightedCell;
 var routeQuery;
 var bounds;
 var panning = false;
-var destinations = [];
+// var destinations = [];
 var destinationsHigh = [];
 var destinationsLow = [];
 var destinationNames = [];
@@ -32,43 +32,74 @@ function initialize() {
 
     var service = new google.maps.places.PlacesService(map);
 
+    var radarSearch = function(place, distanceMultiplier){
+      console.log(place, distanceMultiplier);
+      return new Promise(function(resolve, reject){
+        service.radarSearch({
+          location: pos,
+          radius: (gon.distance_needed * distanceMultiplier),
+          keyword: place
+        }, function(results, status){
+          if(status === 'error'){
+            return reject(status);
+          } else {
+            console.log(results);
+            return resolve(results);
+          }
+        });
+      }
+    );
+
+    };
+
+    var joinedRadarSearch = function(place) {
+      return Promise.all([radarSearch(place, 0.95), radarSearch(place, 0.7)]);
+    };
+
+    joinedRadarSearch('park').then(function(searchResults) {
+      console.log(searchResults);
+      var destinations = getComplement(searchResults[0], searchResults[1]);
+      listPlaces(destinations);
+    });
+
+
     // Search for places that are ~distance needed
-    service.radarSearch({
-      location: pos,
-      radius: (gon.distance_needed * 1),
-      keyword: 'park'
-    }, callback);
-
-    function callback(results, status) {
-      console.log(status);
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        destinationsHigh = results;
-        if (destinationsLow.length > 0) {
-          destinations = getComplement(destinationsLow, destinationsHigh);
-          listPlaces();
-        } else if (destinationsHigh.length < 5) { // search results too low to fill page
-          nearbySearch();
-        }
-      }
-    }
-
-    // Search for places that are less than distance needed
-    service.radarSearch({
-      location: pos,
-      radius: (gon.distance_needed * 0.70),
-      keyword: 'park'
-    }, callback2);
-
-    function callback2(results, status) {
-        console.log(status);
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        destinationsLow = results;
-        if (destinationsHigh.length > 0) {
-          destinations = getComplement(destinationsLow, destinationsHigh);
-          listPlaces();
-        }
-      }
-    }
+    // service.radarSearch({
+    //   location: pos,
+    //   radius: (gon.distance_needed * 0.95),
+    //   keyword: 'park'
+    // }, callback);
+    //
+    // function callback(results, status) {
+    //   console.log(status);
+    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //     destinationsHigh = results;
+    //     if (destinationsLow.length > 0) {
+    //       destinations = getComplement(destinationsLow, destinationsHigh);
+    //       listPlaces();
+    //     } else if (destinationsHigh.length < 5) { // search results too low to fill page
+    //       nearbySearch();
+    //     }
+    //   }
+    // }
+    //
+    // // Search for places that are less than distance needed
+    // service.radarSearch({
+    //   location: pos,
+    //   radius: (gon.distance_needed * 0.70),
+    //   keyword: 'park'
+    // }, callback2);
+    //
+    // function callback2(results, status) {
+    //     console.log(status);
+    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //     destinationsLow = results;
+    //     if (destinationsHigh.length > 0) {
+    //       destinations = getComplement(destinationsLow, destinationsHigh);
+    //       listPlaces();
+    //     }
+    //   }
+    // }
   });
 }
 
@@ -109,22 +140,22 @@ function getComplement(arr1, arr2) {
   return complement;
 }
 
-function listPlaces() {
+function listPlaces(destinations) {
   // query limit is 10 per second
   for (var i = 0; i < 5; i++) {
     getName(destinations[i], i, function(name, id) {
-      addPlace(name, id);
+      addPlace(name, id, destinations);
       // getDistance(destinations[id], id, addDistance);
       getSteps(destinations[id], id, addSteps);
     });
   }
 }
 
-function addPlace(name, id) {
+function addPlace(name, id, destinations) {
   console.log(id);
   $(".places").append("<p class='place" + id + " place-box'>" + name + "</p>");
   $(".place" + id).click(function() {
-    getRouteFunction(id);
+    getRouteFunction(id, destinations);
   });
 }
 
@@ -187,7 +218,7 @@ function getSteps(place, id, callback2) {
   });
 }
 
-function getRouteFunction(j) {
+function getRouteFunction(j, destinations) {
   console.log("getting route");
   var query = {
     origins: origins,
