@@ -10,10 +10,9 @@ var destinationsLow = [];
 var destinationNames = [];
 var origins;
 var query;
+var pos;
 
 function initialize() {
-  var pos;
-
   // Get current location
   navigator.geolocation.getCurrentPosition(function(position) {
     pos = {
@@ -47,9 +46,8 @@ function initialize() {
         if (destinationsLow.length > 0) {
           destinations = getComplement(destinationsLow, destinationsHigh);
           listPlaces();
-        } else if (destinationsLow.length === 0 && destinationsHigh.length === 0) {
-          destinations = nearbySearch();
-          listPlaces();
+        } else if (destinationsHigh.length < 5) { // search results too low to fill page
+          nearbySearch();
         }
       }
     }
@@ -68,9 +66,6 @@ function initialize() {
         if (destinationsHigh.length > 0) {
           destinations = getComplement(destinationsLow, destinationsHigh);
           listPlaces();
-        } else if (destinationsLow.length === 0 && destinationsHigh.length === 0) {
-          destinations = nearbySearch();
-          listPlaces();
         }
       }
     }
@@ -80,6 +75,7 @@ function initialize() {
 // Use nearby search if radar search returns no results
 function nearbySearch() {
   console.log("nearby search");
+  var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: pos,
     radius: gon.distance_needed,
@@ -90,6 +86,7 @@ function parseResults(results, status) {
   console.log(results);
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     destinations = results;
+    listPlaces();
   }
 }
 
