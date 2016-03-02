@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 body {
   font-family: 'Quicksand', sans-serif;
@@ -138,4 +139,13 @@ hr {
 .start-over-box {
   margin-left: 0px;
   text-align: center;
+}
+
+.start-over-box a {
+  color: #000000;
+}
+
+.start-over-box a:hover {
+  color: #bfbfbf;
+  text-decoration: none;
 }
