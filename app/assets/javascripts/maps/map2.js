@@ -28,7 +28,6 @@ function initialize() {
     var service = new google.maps.places.PlacesService(map);
 
     var radarSearch = function(place, distanceMultiplier){
-      console.log(place, distanceMultiplier);
       return new Promise(function(resolve, reject){
         service.radarSearch({
           location: pos,
@@ -38,7 +37,6 @@ function initialize() {
           if(status === 'error'){
             return reject(status);
           } else {
-            console.log(results);
             return resolve(results);
           }
         });
@@ -46,7 +44,7 @@ function initialize() {
     };
 
     var joinedRadarSearch = function(place) {
-      return Promise.all([radarSearch(place, 1.15), radarSearch(place, 0.85)]);
+      return Promise.all([radarSearch(place, 0.85), radarSearch(place, 1.15)]);
     };
 
     joinedRadarSearch(gon.place_type).then(function(searchResults) {
@@ -59,7 +57,6 @@ function initialize() {
 
 // Use nearby search if radar search returns no results
 function nearbySearch() {
-  console.log("nearby search");
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: pos,
@@ -68,7 +65,6 @@ function nearbySearch() {
 }
 
 function parseResults(results, status) {
-  console.log(results);
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     destinations = results;
     listPlaces();
@@ -106,7 +102,6 @@ function listPlaces(destinations) {
 }
 
 function addPlace(name, id, destinations) {
-  console.log(id);
   $(".places").append("<p class='place" + id + " place-box'>" + name + "</p>");
   $(".place" + id).click(function() {
     getRouteFunction(id, destinations);
@@ -173,7 +168,6 @@ function getSteps(place, id, callback2) {
 }
 
 function getRouteFunction(j, destinations) {
-  console.log("getting route");
   var query = {
     origins: origins,
     destinations: destinations,
@@ -192,8 +186,6 @@ function getRouteFunction(j, destinations) {
     highlightedCell.removeClass("highlighted-cell");
   }
   highlightedCell = $('.place' + j);
-  console.log('place' + j);
-  console.log(highlightedCell);
   highlightedCell.addClass("highlighted-cell");
   showRoute();
 }
@@ -215,7 +207,6 @@ function showRoute() {
     }
   });
 
-  console.log("showing route");
   dirService.route(routeQuery, function(result, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       dirRenderer.setDirections(result);
