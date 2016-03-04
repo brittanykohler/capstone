@@ -8,6 +8,14 @@ var panning = false;
 var origins;
 
 function initialize() {
+  // Set loading animation
+  // var i = 0;
+  // setInterval(function() {
+  //   i = ++i % 4;
+    // $("#map").html("Loading "+Array(i+1).join("."));
+  // }, 800);
+  $("#map").html("Loading");
+
   // Get current location
   navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
@@ -19,6 +27,7 @@ function initialize() {
       center: pos,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+    $("#map").empty();
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     origins = [
