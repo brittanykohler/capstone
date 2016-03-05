@@ -12,22 +12,18 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Fruit Consumption'
+            text: 'Weekly Steps'
         },
         xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            categories: ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: 'Steps'
             }
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            data: [10000, 400, 6500, 3000, 2900]
         }]
     });
 });
