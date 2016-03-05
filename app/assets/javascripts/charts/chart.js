@@ -25,6 +25,9 @@ $(function () {
         series: [{
           showInLegend: false,
           data: [10000, 400, 6500, 3000, 2900]
-        }]
+        }],
+        credits: {
+            enabled: false
+        },
     });
 });
