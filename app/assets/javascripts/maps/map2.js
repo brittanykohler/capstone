@@ -8,13 +8,6 @@ var panning = false;
 var origins;
 
 function initialize() {
-  // Set loading animation
-  // var i = 0;
-  // setInterval(function() {
-  //   i = ++i % 4;
-    // $("#map").html("Loading "+Array(i+1).join("."));
-  // }, 800);
-  // $("#map").html("Loading");
 
   // Get current location
   navigator.geolocation.getCurrentPosition(function(position) {
