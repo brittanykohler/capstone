@@ -73,12 +73,14 @@ class User < ActiveRecord::Base
     weekdays = []
     day = Time.now
     7.times do
-      day -= 86400
       weekdays << day.strftime("%a")
       day_formatted = day.strftime("%Y-%m-%d")
       data = client.activities_on_date(day_formatted)
       week_data << data["summary"]["steps"]
+      day -= 86400
     end
+    week_data.reverse!
+    weekdays.reverse!
     return week_data, weekdays
   end
 end
