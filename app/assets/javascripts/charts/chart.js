@@ -24,10 +24,12 @@ $(function () {
         },
         series: [{
           showInLegend: false,
-          data: gon.chart_data
+          data: gon.chart_data,
+          color: "#00A9B6"
         }],
         credits: {
             enabled: false
         },
+
     });
 });
