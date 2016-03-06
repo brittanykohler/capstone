@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
     user = self.find_by(u_id: auth["uid"])
     if !user.nil?
       # User found in db
+      user.user_token             = auth["credentials"]["token"]
+      user.user_secret            = auth["credentials"]["secret"]
+      user.save
       return user
     else
       # create new user in db
