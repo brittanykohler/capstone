@@ -15,7 +15,7 @@ $(function () {
             text: 'Weekly Steps'
         },
         xAxis: {
-            categories: ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
+            categories: gon.chart_days
         },
         yAxis: {
             title: {
@@ -24,7 +24,7 @@ $(function () {
         },
         series: [{
           showInLegend: false,
-          data: [10000, 400, 6500, 3000, 2900]
+          data: gon.chart_data
         }],
         credits: {
             enabled: false
