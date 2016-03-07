@@ -27,11 +27,11 @@ RSpec.describe User, type: :model do
   end
 
   # need to fix... how to stub methods out?
-  describe "get_current_steps" do 
+  describe "get_current_steps" do
     before :each do
       @auth_hash = OmniAuth::AuthHash.new({:uid => ENV["FITBIT_UID"],
         info: {name: "Brittany", timezone: "LosAngeles"},
-        extra: {raw_info: {user: {strideLengthWalking: "72", strideLengthRunning: "95", avatar: "www.google.com"}}},
+        extra: {raw_info: {user: {strideLengthWalking: "72", strideLengthRunning: "95", avatar: "www.google.com", offsetFromUTCMillis: -28800000}}},
         credentials: {token: ENV["FITBIT_USER_TOKEN"], secret: ENV["FITBIT_USER_SECRET"]}})
     end
 
