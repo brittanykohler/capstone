@@ -1,0 +1,74 @@
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-xs-4 greeting">
+      Hi, <%= current_user.name %>!
+    </div>
+    <div class="col-xs-4 text-center">
+      <h1 id="logo">FIT TRIP</h1>
+    </div>
+    <div class="col-xs-4 logout-link text-center">
+      <%= link_to "log out", signout_path %>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-6">
+        STEPS: <%= @current_steps %> / <%= @step_goal %>
+    </div>
+    <div class="col-xs-6 steps-needed-box">
+      <%= @steps_needed %> STEPS TO GO!
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      Time to meet your step goal. Where would you like to go?
+    </div>
+  </div>
+
+  <div class="row place-choice-row">
+    <%= link_to(results_path("park")) do %>
+      <div class="col-xs-6 place-choice-box">
+        PARK
+      </div>
+    <% end %>
+    <%= link_to(results_path("museum")) do %>
+      <div class="col-xs-6 place-choice-box">
+        MUSEUM
+      </div>
+    <% end %>
+  </div>
+  <div class="row place-choice-row">
+    <%= link_to(results_path("store")) do %>
+      <div class="col-xs-6 place-choice-box">
+        STORE
+      </div>
+    <% end %>
+    <%= link_to(results_path("school")) do %>
+      <div class="col-xs-6 place-choice-box">
+        SCHOOL
+      </div>
+    <% end %>
+  </div>
+  <div class="row place-choice-row">
+    <%= link_to(results_path("restaurant")) do %>
+      <div class="col-xs-6 place-choice-box">
+        RESTAURANT
+      </div>
+    <% end %>
+    <%= link_to(results_path("random")) do %>
+      <div class="col-xs-6 place-choice-box">
+        I DON'T CARE
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+  <div id="login-image">
+    <div id="app-logo">
+      fit trip
+    </div>
+    <div id="login-link">
+      <%= link_to "log in", "/auth/fitbit" %>
+    </div>
+  </div>
+<% end %>
