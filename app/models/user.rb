@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     client.reconnect(self.user_token, self.user_secret)
 
     # client.activities_on_date('2015-03-25') <- Specific Date
-    today = Time.now.utc + self.offset_from_utc_millis
+    today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
     info = client.activities_on_date(formatted_today)
     current_steps = info["summary"]["steps"]
