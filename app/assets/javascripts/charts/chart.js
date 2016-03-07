@@ -8,28 +8,27 @@
 //
 $(function () {
     $('#chart').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Weekly Steps'
-        },
-        xAxis: {
-            categories: gon.chart_days
-        },
-        yAxis: {
-            title: {
-                text: 'Steps'
-            }
-        },
-        series: [{
-          showInLegend: false,
-          data: gon.chart_data,
-          color: "#00A9B6"
-        }],
-        credits: {
-            enabled: false
-        },
-
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Weekly Steps'
+      },
+      xAxis: {
+          categories: gon.chart_days
+      },
+      yAxis: {
+          title: {
+              text: 'Steps'
+          }
+      },
+      series: [{
+        showInLegend: false,
+        data: gon.chart_data,
+        color: "#00A9B6"
+      }],
+      credits: {
+          enabled: false
+      },
     });
 });
