@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
       user.u_id                   = auth["uid"]
       user.name                   = auth["info"]["name"]
       user.timezone               = auth["info"]["timezone"]
+      user.offset_from_utc_millis = auth["extra"]["raw_info"]["user"]["offsetFromUTCMillis"]
       user.stride_length_walking  = auth["extra"]["raw_info"]["user"]["strideLengthWalking"]
       user.stride_length_running  = auth["extra"]["raw_info"]["user"]["strideLengthRunning"]
       user.photo                  = auth["extra"]["raw_info"]["user"]["avatar"]

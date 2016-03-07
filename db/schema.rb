@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223182345) do
+ActiveRecord::Schema.define(version: 20160307045937) do
 
   create_table "users", force: :cascade do |t|
     t.string   "u_id"
@@ -22,10 +22,11 @@ ActiveRecord::Schema.define(version: 20160223182345) do
     t.string   "photo"
     t.string   "city"
     t.string   "country"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "user_token"
     t.string   "user_secret"
+    t.integer  "offset_from_utc_millis"
   end
 
 end
