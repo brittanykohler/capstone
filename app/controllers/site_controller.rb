@@ -17,6 +17,7 @@ class SiteController < ApplicationController
       @chart_data, @chart_days = current_user.get_steps_for_week
       gon.chart_data = @chart_data
       gon.chart_days = @chart_days
+      gon.step_goal = @step_goal
     end
   end
 
