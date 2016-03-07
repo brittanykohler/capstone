@@ -64,4 +64,31 @@ class User < ActiveRecord::Base
     step_goal = info["goals"]["steps"]
     return step_goal
   end
+
+  def get_steps_for_week
+    client = Fitgem::Client.new({
+      consumer_key: ENV['FITBIT_CLIENT_ID'],
+      consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
+      token: self.user_token,
+      secret: self.user_secret,
+      user_id: self.u_id,
+    })
+
+    # Reconnects existing user using the information above
+    client.reconnect(self.user_token, self.user_secret)
+
+    week_data = []
+    weekdays = []
+    day = Time.now.utc + (self.offset_from_utc_millis / 1000)
+    7.times do
+      weekdays << day.strftime("%a")
+      day_formatted = day.strftime("%Y-%m-%d")
+      data = client.activities_on_date(day_formatted)
+      week_data << data["summary"]["steps"]
+      day -= 86400
+    end
+    week_data.reverse!
+    weekdays.reverse!
+    return week_data, weekdays
+  end
 end
