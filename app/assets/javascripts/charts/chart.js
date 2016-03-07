@@ -9,18 +9,21 @@
 $(function () {
     $('#chart').highcharts({
       chart: {
-          type: 'column'
+        type: 'column',
+        style: {
+          fontFamily: 'Quicksand'
+        }
       },
       title: {
-          text: 'Weekly Steps'
+        text: 'Weekly Steps'
       },
       xAxis: {
-          categories: gon.chart_days
+        categories: gon.chart_days
       },
       yAxis: {
-          title: {
-              text: 'Steps'
-          }
+        title: {
+            text: 'Steps'
+        }
       },
       series: [{
         showInLegend: false,
