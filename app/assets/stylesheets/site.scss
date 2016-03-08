@@ -75,7 +75,33 @@ body {
 }
 //------ End Login Page Styles -----------------
 
-//------ Dashboard Page Styles -----------------
+//------ Index Page Styles ---------------------
+
+.date-box {
+  font-size: 24px;
+  text-align: center;
+}
+
+.steps-box {
+  font-size: 18px;
+  text-align: center;
+}
+
+.percentage-box-total {
+  width: 400px;
+  outline-style: solid;
+  height: 50px;
+  margin: auto;
+}
+
+.percentage-box-current-steps {
+  height: 50px;
+  background-color: #000000;
+}
+
+//------ End Index Page Styles -----------------
+
+//------ Results Page Styles -----------------
 
 #map {
   background: transparent image_url("ajax-loader.gif") no-repeat center center;
@@ -150,10 +176,10 @@ hr {
 .steps-needed-box {
   text-align: right;
 }
-//------ End Dashboard Page Styles -----------------
+//------ End Results Page Styles -----------------
 
 
-//------ Interstitial Page Styles -----------------
+//------ Trips Page Styles -----------------
 .place-choice-box {
   height: 70px;
   border-style: solid;

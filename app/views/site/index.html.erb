@@ -12,17 +12,30 @@
   </div>
   <hr>
   <div class="row">
-
+    <div class="col-xs-12 date-box">
+      <%= @date %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 steps-box">
+      STEPS: <%= @current_steps %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="percentage-box-total">
+      <div style="width:<%= @current_steps.to_f / @step_goal * 400 %>px;" class="percentage-box-current-steps">
+      </div>
+    </div>
   </div>
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-xs-6">
         STEPS: <%= @current_steps %> / <%= @step_goal %>
     </div>
     <div class="col-xs-6 steps-needed-box">
       <%= @steps_needed %> STEPS TO GO!
     </div>
-  </div>
+  </div> -->
 <% else %>
   <div id="login-image">
     <div id="app-logo">
