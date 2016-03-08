@@ -85,6 +85,8 @@ body {
 .steps-box {
   font-size: 18px;
   text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .percentage-box-total {
@@ -101,8 +103,22 @@ body {
 
 .steps-to-go-box {
   text-align: center;
-  margin: 15px;
+  margin-top: 15px;
 }
+
+.get-trip-button, .view-stats-button {
+  width: 200px;
+  height: 40px;
+  border-style: dotted;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 15px;
+}
+.index-button a:hover, .index-button a:hover {
+  text-decoration: none;
+}
+
 
 //------ End Index Page Styles -----------------
 
