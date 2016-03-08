@@ -2,7 +2,7 @@ class SiteController < ApplicationController
   def index
     if logged_in?
       date = Time.now.utc + (current_user.offset_from_utc_millis/1000)
-      @date = date.strftime("%B %d")
+      @date = date.strftime("%A %B %d")
       @current_steps = current_user.get_current_steps
       @step_goal = current_user.get_step_goal
       if @step_goal > @current_steps
