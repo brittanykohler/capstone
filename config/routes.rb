@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get "/results", to: "site#results"
   get "/stats", to: "site#stats"
   get "/trips", to: "site#trips"
-  post "/trips", to: "site#trips"
+  post "/results", to: "site#results"
 end
