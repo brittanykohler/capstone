@@ -18,6 +18,17 @@ body {
   border: none;
 }
 
+.icon-bar {
+  background-color: #000000;
+}
+
+a.navbar-brand {
+  color: #000000;
+}
+
+.navbar a {
+  color: #000000;
+}
 
  //------ Login Page Styles-----------------
 #login-image {
@@ -53,7 +64,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20%;
-  border-style: dotted;
+  border-style: solid;
+  border-width: 1px;
   border-color: #FFFFFF;
 }
 
