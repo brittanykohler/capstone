@@ -21,7 +21,6 @@ function initialize() {
         center: pos,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      $("#map").empty();
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
       origins = [
@@ -47,7 +46,7 @@ function initialize() {
       };
 
       var joinedRadarSearch = function(place) {
-        return Promise.all([radarSearch(place, 0.85), radarSearch(place, 1.15)]);
+        return Promise.all([radarSearch(place, 0.85), radarSearch(place, 1)]);
       };
 
       joinedRadarSearch(gon.place_type).then(function(searchResults) {
@@ -77,20 +76,20 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
 }
 
 // Use nearby search if radar search returns no results
-function nearbySearch() {
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: pos,
-    radius: gon.distance_needed,
-  }, parseResults);
-}
-
-function parseResults(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    destinations = results;
-    listPlaces();
-  }
-}
+// function nearbySearch() {
+//   var service = new google.maps.places.PlacesService(map);
+//   service.nearbySearch({
+//     location: pos,
+//     radius: gon.distance_needed,
+//   }, parseResults);
+// }
+//
+// function parseResults(results, status) {
+//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+//     destinations = results;
+//     listPlaces();
+//   }
+// }
 
 // Get places that are in between the smaller radius and the larger radius
 function getComplement(arr1, arr2) {
