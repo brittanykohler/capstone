@@ -234,18 +234,31 @@ hr {
 
 
 //------ Trips Page Styles -----------------
-.place-choice-box {
-  height: 70px;
-  border-style: solid;
-  border-width: thin;
-  text-align: center;
-  padding-top: 20px;
-}
+// .place-choice-box {
+//   height: 70px;
+//   border-style: solid;
+//   border-width: thin;
+//   text-align: center;
+//   padding-top: 20px;
+// }
+//
+// .place-choice-row a {
+//   color: #000000;
+// }
+//
+// .place-choice-row a:hover div {
+//   background-color: #00A9B6;
+// }
 
-.place-choice-row a {
-  color: #000000;
-}
-
-.place-choice-row a:hover div {
+.trip-btn.active {
   background-color: #00A9B6;
+}
+
+.trip-btn {
+  background-color: #e6e6e6;
+  margin-top: 15px;
+}
+
+.steps-form-box {
+  margin-top: 15px;
 }

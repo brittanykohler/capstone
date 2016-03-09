@@ -29,7 +29,7 @@ class SiteController < ApplicationController
       # distance in meters
       # @distance_needed = @steps_needed * current_user.stride_length_walking.to_f / 100
       # Using steps from form
-      @distance_needed = params[:steps].to_i * current_user.stride_length_walking.to_f / 100
+      @distance_needed = params[:steps].to_i * current_user.stride_length_walking.to_f / 100 # converting from cm to m
       if params[:'trip-type'] == "Round-trip"
         @distance_needed /= 2
       end

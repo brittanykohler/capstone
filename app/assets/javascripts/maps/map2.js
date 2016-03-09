@@ -8,7 +8,6 @@ var panning = false;
 var origins;
 
 function initialize() {
-
   // Get current location
   navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
