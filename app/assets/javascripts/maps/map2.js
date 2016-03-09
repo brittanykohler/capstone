@@ -8,52 +8,69 @@ var panning = false;
 var origins;
 
 function initialize() {
+  var infoWindow = new google.maps.InfoWindow({map: map});
   // Get current location
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    var mapOptions = {
-      zoom: 15,
-      center: pos,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    $("#map").empty();
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) { // location is found
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var mapOptions = {
+        zoom: 15,
+        center: pos,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      $("#map").empty();
+      map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    origins = [
-      new google.maps.LatLng(pos.lat, pos.lng)
-    ];
+      origins = [
+        new google.maps.LatLng(pos.lat, pos.lng)
+      ];
 
-    var service = new google.maps.places.PlacesService(map);
+      var service = new google.maps.places.PlacesService(map);
 
-    var radarSearch = function(place, distanceMultiplier){
-      return new Promise(function(resolve, reject){
-        service.radarSearch({
-          location: pos,
-          radius: (gon.distance_needed * distanceMultiplier),
-          type: place
-        }, function(results, status){
-          if(status === 'error'){
-            return reject(status);
-          } else {
-            return resolve(results);
-          }
+      var radarSearch = function(place, distanceMultiplier){
+        return new Promise(function(resolve, reject){
+          service.radarSearch({
+            location: pos,
+            radius: (gon.distance_needed * distanceMultiplier),
+            type: place
+          }, function(results, status){
+            if(status === 'error'){
+              return reject(status);
+            } else {
+              return resolve(results);
+            }
+          });
         });
+      };
+
+      var joinedRadarSearch = function(place) {
+        return Promise.all([radarSearch(place, 0.85), radarSearch(place, 1.15)]);
+      };
+
+      joinedRadarSearch(gon.place_type).then(function(searchResults) {
+        console.log(searchResults);
+        var destinations = getComplement(searchResults[0], searchResults[1]);
+        listPlaces(destinations);
       });
-    };
-
-    var joinedRadarSearch = function(place) {
-      return Promise.all([radarSearch(place, 0.85), radarSearch(place, 1.15)]);
-    };
-
-    joinedRadarSearch(gon.place_type).then(function(searchResults) {
-      console.log(searchResults);
-      var destinations = getComplement(searchResults[0], searchResults[1]);
-      listPlaces(destinations);
+    }, function() {
+      handleLocationError(true, infoWindow); // Error with finding location
     });
-  });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow);
+  }
+}
+
+// Deal with geolocation errors
+function handleLocationError(browserHasGeolocation, infoWindow) {
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  $("#map").css('background', 'transparent');
+  $("#map").html("error");
 }
 
 // Use nearby search if radar search returns no results
