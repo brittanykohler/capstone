@@ -70,7 +70,10 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
   $("#map").css('background', 'transparent');
-  $("#map").html("error");
+  $("#map").css('padding-top', '20px');
+  $("#map").html(browserHasGeolocation ?
+                        'Error: It looks like you don\'t have location services turned on. Please update your location settings in your browser to view trip results.' :
+                        'Error: Your browser doesn\'t support geolocation. Please use an updated browser to view trip results.');
 }
 
 // Use nearby search if radar search returns no results
