@@ -17,32 +17,32 @@
   <%= form_tag results_path do %>
     <div class="btn-group btn-toggle" data-toggle="buttons">
       <label class="btn trip-btn active">
-        <input name="trip-type" value="Round-trip" type="radio"> Round-trip
+        <input name="trip-type" value="Round-trip" checked="" type="radio"> Round-trip
       </label>
       <label class="btn trip-btn">
-        <input name="trip-type" value="One-way" checked="" type="radio"> One-way
+        <input name="trip-type" value="One-way"  type="radio"> One-way
       </label>
     </div>
     <div class="row">
       <div class="col-xs-12">
         <div class="btn-group btn-toggle" data-toggle="buttons">
           <label class="btn trip-btn active">
-            <input name="place-type" value="park" type="radio"> Park
+            <input name="place-type" value="park" checked="" type="radio"> Park
           </label>
           <label class="btn trip-btn">
-            <input name="place-type" value="store" checked="" type="radio"> Store
+            <input name="place-type" value="store" type="radio"> Store
           </label>
           <label class="btn trip-btn">
             <input name="place-type" value="restaurant" type="radio"> Restaurant
           </label>
           <label class="btn trip-btn">
-            <input name="place-type" value="museum" checked="" type="radio"> Museum
+            <input name="place-type" value="museum" type="radio"> Museum
           </label>
           <label class="btn trip-btn">
             <input name="place-type" value="school" type="radio"> School
           </label>
           <label class="btn trip-btn">
-            <input name="place-type" value="random" checked="" type="radio"> I don't care
+            <input name="place-type" value="random" type="radio"> I don't care
           </label>
         </div>
       </div>
