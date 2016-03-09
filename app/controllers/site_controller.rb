@@ -76,4 +76,8 @@ class SiteController < ApplicationController
       gon.stride_length_walking = current_user.stride_length_walking
     end
   end
+
+  def letsencrypt
+    render plain: ENV['LE_AUTH_RESPONSE']
+  end
 end
