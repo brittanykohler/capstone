@@ -52,7 +52,14 @@ function initialize() {
       joinedRadarSearch(gon.place_type).then(function(searchResults) {
         console.log(searchResults);
         var destinations = getComplement(searchResults[0], searchResults[1]);
-        listPlaces(destinations);
+        console.log(destinations);
+        destinations = setDistances(destinations, pos);
+        console.log(destinations);
+        destinations = setDistanceDiffs(destinations);
+        console.log(destinations);
+        destinations = sortByProximity(destinations);
+        console.log(destinations);
+        // listPlaces(destinations);
       });
     }, function() {
       handleLocationError(true, infoWindow); // Error with finding location
@@ -75,21 +82,6 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
                         'Error: Your browser doesn\'t support geolocation. Please use an updated browser to view trip results.');
 }
 
-// Use nearby search if radar search returns no results
-// function nearbySearch() {
-//   var service = new google.maps.places.PlacesService(map);
-//   service.nearbySearch({
-//     location: pos,
-//     radius: gon.distance_needed,
-//   }, parseResults);
-// }
-//
-// function parseResults(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     destinations = results;
-//     listPlaces();
-//   }
-// }
 
 // Get places that are in between the smaller radius and the larger radius
 function getComplement(arr1, arr2) {
@@ -109,6 +101,51 @@ function getComplement(arr1, arr2) {
   }
   return complement;
 }
+
+function setDistances(destinations, currentLocation) {
+  for (var i = 0; i < destinations.length; i++) {
+    destinations[i].distance = calcDistance(destinations[i], currentLocation);
+  }
+  return destinations;
+}
+
+// calculating distance in meters
+function calcDistance(place, currentLocation) {
+  var lat1 = place.geometry.location.lat();
+  var lon1 = place.geometry.location.lng();
+  var lat2 = currentLocation.lat;
+  var lon2 = currentLocation.lng;
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);
+  var a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  d *= 1000; // Convert to meters
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180);
+}
+
+function setDistanceDiffs(destinations) {
+  for (var i = 0; i < destinations.length; i++) {
+    destinations[i].distanceDiff = Math.abs(destinations[i].distance - gon.distance_needed);
+  }
+  return destinations;
+}
+
+function sortByProximity(destinations) {
+  destinations.sort(function(a, b) {
+    return a.distanceDiff - b.distanceDiff;
+  });
+}
+
 
 function listPlaces(destinations) {
   // query limit is 10 per second
