@@ -1,15 +1,4 @@
 <% if logged_in? %>
-  <!-- <div class="row">
-    <div class="col-xs-4 greeting">
-      Hi, <%= current_user.name %>!
-    </div>
-    <div class="col-xs-4 text-center">
-      <h1 id="logo">FIT TRIP</h1>
-    </div>
-    <div class="col-xs-4 logout-link text-center">
-      <%= link_to "log out", signout_path %>
-    </div>
-  </div> -->
   <%= render "shared/nav" %>
   <div class="row">
     <div class="col-xs-12 date-box">
@@ -29,7 +18,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12 steps-to-go-box">
-      <%= @steps_needed_message %> 
+      <%= @steps_needed_message %>
     </div>
   </div>
   <div class="row index-button">
@@ -51,8 +40,11 @@
     <div id="app-logo">
       fit trip
     </div>
-    <div id="login-link">
-      <%= link_to "log in", "/auth/fitbit" %>
-    </div>
+    <%= link_to(auth_fitbit_path) do %>
+      <div id="login-link">
+        <p>LOG</p>
+        <p>IN</p>
+      </div>
+    <% end %>
   </div>
 <% end %>
