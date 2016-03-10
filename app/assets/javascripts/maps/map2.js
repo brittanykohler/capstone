@@ -83,7 +83,7 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
 }
 
 function displayPlacesError() {
-  $(".places").append("Sorry, there are no places that match your search. Please try again with different choices.")
+  $(".places").append("Sorry, there are no places that match your search. Please try again with different choices.");
 }
 
 
@@ -148,7 +148,7 @@ function sortByProximity(destinations) {
   destinations.sort(function(a, b) {
     return a.distanceDiff - b.distanceDiff;
   });
-  return destinations
+  return destinations;
 }
 
 
@@ -170,9 +170,9 @@ function addPlace(name, id, destinations) {
   });
 }
 
-function addDistance(distance, id) {
-  $(".place" + id).append("<span> distance: " + distance + "</span>");
-}
+// function addDistance(distance, id) {
+//   $(".place" + id).append("<span> distance: " + distance + "</span>");
+// }
 
 function addSteps(distanceMeters, id) {
   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
@@ -192,34 +192,32 @@ function getName(place, id, callback2) {
     }
   }
 }
-
-function getDistance(place, id, callback2) {
-  dms = new google.maps.DistanceMatrixService();
-  var query = {
-    origins: origins,
-    destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
-    travelMode: "WALKING",
-    unitSystem: 1
-    // travelMode: google.maps.TravelMode.WALKING,
-    // unitSystem: google.maps.UnitSystem.IMPERIAL
-  };
-  dms.getDistanceMatrix(query, function(response, status) {
-    if (status == "OK") {
-      var distance = response.rows[0].elements[0].distance.text;
-      callback2(distance, id);
-    }
-  });
-}
+//
+// function getDistance(place, id, callback2) {
+//   dms = new google.maps.DistanceMatrixService();
+//   var query = {
+//     origins: origins,
+//     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
+//     travelMode: "WALKING",
+//     unitSystem: 1
+//     // travelMode: google.maps.TravelMode.WALKING,
+//     // unitSystem: google.maps.UnitSystem.IMPERIAL
+//   };
+//   dms.getDistanceMatrix(query, function(response, status) {
+//     if (status == "OK") {
+//       var distance = response.rows[0].elements[0].distance.text;
+//       callback2(distance, id);
+//     }
+//   });
+// }
 
 function getSteps(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
   var query = {
     origins: origins,
     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
-    travelMode: "WALKING",
-    unitSystem: 1
-    // travelMode: google.maps.TravelMode.WALKING,
-    // unitSystem: google.maps.UnitSystem.IMPERIAL
+    travelMode: google.maps.TravelMode.WALKING,
+    unitSystem: google.maps.UnitSystem.IMPERIAL
   };
   dms.getDistanceMatrix(query, function(response, status) {
     if (status == "OK") {
@@ -234,9 +232,7 @@ function getRouteFunction(j, destinations) {
     origins: origins,
     destinations: destinations,
     travelMode: google.maps.TravelMode.WALKING,
-    unitSystem: 1
-    // travelMode: google.maps.TravelMode.WALKING,
-    // unitSystem: google.maps.UnitSystem.IMPERIAL
+    unitSystem: google.maps.UnitSystem.IMPERIAL
   };
   routeQuery = {
     origin: origins[0],
@@ -253,14 +249,10 @@ function getRouteFunction(j, destinations) {
 }
 
 function showRoute() {
-  // if (dirService === undefined) {
-  //     dirService = new google.maps.DirectionsService();
-  // }
   var dirService = new google.maps.DirectionsService();
   if (dirRenderer === undefined) {
     dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   }
-  // var dirRenderer = new google.maps.DirectionsRenderer({preserveViewport:true});
   dirRenderer.setMap(map);
   google.maps.event.addListener(map, 'idle', function() {
     if (panning) {

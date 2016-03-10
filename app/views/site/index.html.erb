@@ -23,13 +23,13 @@
   </div>
   <div class="row">
     <div class="percentage-box-total">
-      <div style="width:<%= @current_steps.to_f / @step_goal * 300 %>px;" class="percentage-box-current-steps">
+      <div style="width:<%= @percentage_bar * 300 %>px;" class="percentage-box-current-steps">
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 steps-to-go-box">
-      <%= @steps_needed %> STEPS TO GO!
+      <%= @steps_needed_message %> 
     </div>
   </div>
   <div class="row index-button">

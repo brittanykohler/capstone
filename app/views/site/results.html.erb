@@ -7,7 +7,7 @@
         STEPS: <%= @current_steps %> / <%= @step_goal %>
     </div>
     <div class="col-xs-6 steps-needed-box">
-      <%= @steps_needed %> STEPS TO GO!
+      <%= @steps_needed_message %>
     </div>
   </div>
 
@@ -23,6 +23,6 @@
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ6Z1BMYp1EOaK43IedKrZ4Yln_cawBI&signed_in=true&libraries=places&callback=initialize" async defer></script>
   <div class="row start-over-box">
-    <%= link_to "Start Over", root_path %> <i class="fa fa-refresh"></i>
+    <%= link_to "Start Over", trips_path %> <i class="fa fa-refresh"></i>
   </div>
 <% end %>
