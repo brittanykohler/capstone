@@ -54,7 +54,12 @@ function initialize() {
         destinations = setDistances(destinations, pos);
         destinations = setDistanceDiffs(destinations);
         destinations = sortByProximity(destinations);
-        listPlaces(destinations);
+        console.log(destinations);
+        if (destinations.length > 0) {
+          listPlaces(destinations);
+        } else {
+          displayPlacesError();
+        }
       });
     }, function() {
       handleLocationError(true, infoWindow); // Error with finding location
@@ -75,6 +80,10 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
   $("#map").html(browserHasGeolocation ?
                         'Error: It looks like you don\'t have location services turned on. Please update your location settings in your browser to view trip results.' :
                         'Error: Your browser doesn\'t support geolocation. Please use an updated browser to view trip results.');
+}
+
+function displayPlacesError() {
+  $(".places").append("Sorry, there are no places that match your search. Please try again with different choices.")
 }
 
 
