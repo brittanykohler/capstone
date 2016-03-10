@@ -228,8 +228,6 @@ function getDistance(place, id, callback2) {
 }
 
 function getRouteFunction(j, destinations) {
-  console.log(destinations);
-  console.log(j);
   var query = {
     origins: origins,
     destinations: destinations,
