@@ -50,16 +50,11 @@ function initialize() {
       };
 
       joinedRadarSearch(gon.place_type).then(function(searchResults) {
-        console.log(searchResults);
         var destinations = getComplement(searchResults[0], searchResults[1]);
-        console.log(destinations);
         destinations = setDistances(destinations, pos);
-        console.log(destinations);
         destinations = setDistanceDiffs(destinations);
-        console.log(destinations);
         destinations = sortByProximity(destinations);
-        console.log(destinations);
-        // listPlaces(destinations);
+        listPlaces(destinations);
       });
     }, function() {
       handleLocationError(true, infoWindow); // Error with finding location
@@ -144,6 +139,7 @@ function sortByProximity(destinations) {
   destinations.sort(function(a, b) {
     return a.distanceDiff - b.distanceDiff;
   });
+  return destinations
 }
 
 
