@@ -150,22 +150,6 @@ function sortByProximity(destinations) {
   return destinations;
 }
 
-
-// function listPlaces(destinations) {
-//   // query limit is 10 per second
-//   for (var i = 0; i < 5; i++) {
-//     getName(destinations[i], i, function(name, id) {
-//       destinations[id].name = name;
-//       getDistance(destinations[id], id, function(distanceMeters, id) {
-//         destinations[id].steps = calcSteps(distanceMeters);
-//       });
-//     });
-//   }
-//   //sort
-//   var sortedDestinations = sortBySteps(destinations.slice(0, 5));
-//   //div stuff
-// }
-
 function addNameAndSteps(destination) {
   return new Promise(function(fulfill, reject) {
     getName(destination, 0, function(name, id) {
@@ -184,9 +168,28 @@ function listPlaces(destinations) {
     return addNameAndSteps(destination);
   })).then(function(destinationsWithNamesAndSteps) {
     var sortedDestinations = sortBySteps(destinationsWithNamesAndSteps);
+    addToPage(sortedDestinations);
   });
 }
 
+function addToPage(sortedDestinations) {
+  for (var i = 0; i < sortedDestinations.length; i++) {
+    $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " steps: " + sortedDestinations[i].steps + "</p>");
+    $(".place" + i).data("id", i);
+    addClickForRoute(sortedDestinations, i)
+  }
+}
+
+function addClickForRoute(locations, id) {
+  $(".place" + id).click(function() {
+    getRouteFunction($(".place" + id).data("id"), locations);
+  });
+}
+
+// function addSteps(distanceMeters, id) {
+//   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
+//   $(".place" + id).append("<span> steps: " + steps + "</span>");
+// }
 
 
 function sortBySteps(places) {
@@ -198,18 +201,6 @@ function sortBySteps(places) {
 
 function calcSteps(distance) {
   return Math.round((distance * 100) / gon.stride_length_walking);
-}
-
-function addPlace(name, id, destinations) {
-  $(".places").append("<p class='place" + id + " place-box'>" + name + "</p>");
-  $(".place" + id).click(function() {
-    getRouteFunction(id, destinations);
-  });
-}
-
-function addSteps(distanceMeters, id) {
-  var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
-  $(".place" + id).append("<span> steps: " + steps + "</span>");
 }
 
 function getName(place, id, callback2) {
@@ -243,6 +234,8 @@ function getDistance(place, id, callback2) {
 }
 
 function getRouteFunction(j, destinations) {
+  console.log(destinations);
+  console.log(j);
   var query = {
     origins: origins,
     destinations: destinations,
