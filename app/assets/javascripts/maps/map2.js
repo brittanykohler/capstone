@@ -156,11 +156,22 @@ function listPlaces(destinations) {
   // query limit is 10 per second
   for (var i = 0; i < 5; i++) {
     getName(destinations[i], i, function(name, id) {
-      addPlace(name, id, destinations);
+      destinations[id].name = name;
+      getDistance(destinations[id], id, function(distanceMeters, id) {
+        destinations[id].steps = calcSteps(distanceMeters);
+      });
+      // console.log(destinations[id]);
+      // addPlace(name, id, destinations);
       // getDistance(destinations[id], id, addDistance);
-      getSteps(destinations[id], id, addSteps);
     });
   }
+  //sort
+  //div stuff
+  console.log(destinations[0]);
+}
+
+function calcSteps(distance) {
+  return Math.round((distance * 100) / gon.stride_length_walking);
 }
 
 function addPlace(name, id, destinations) {
@@ -169,10 +180,6 @@ function addPlace(name, id, destinations) {
     getRouteFunction(id, destinations);
   });
 }
-
-// function addDistance(distance, id) {
-//   $(".place" + id).append("<span> distance: " + distance + "</span>");
-// }
 
 function addSteps(distanceMeters, id) {
   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
@@ -186,32 +193,14 @@ function getName(place, id, callback2) {
   };
   service.getDetails(request, callback);
 
-  function callback(place, status) {
+  function callback(result, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      callback2(place.name, id);
+      callback2(result.name, id);
     }
   }
 }
-//
-// function getDistance(place, id, callback2) {
-//   dms = new google.maps.DistanceMatrixService();
-//   var query = {
-//     origins: origins,
-//     destinations: [new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())],
-//     travelMode: "WALKING",
-//     unitSystem: 1
-//     // travelMode: google.maps.TravelMode.WALKING,
-//     // unitSystem: google.maps.UnitSystem.IMPERIAL
-//   };
-//   dms.getDistanceMatrix(query, function(response, status) {
-//     if (status == "OK") {
-//       var distance = response.rows[0].elements[0].distance.text;
-//       callback2(distance, id);
-//     }
-//   });
-// }
 
-function getSteps(place, id, callback2) {
+function getDistance(place, id, callback2) {
   dms = new google.maps.DistanceMatrixService();
   var query = {
     origins: origins,
