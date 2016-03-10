@@ -176,7 +176,7 @@ function addToPage(sortedDestinations) {
   for (var i = 0; i < sortedDestinations.length; i++) {
     $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " steps: " + sortedDestinations[i].steps + "</p>");
     $(".place" + i).data("id", i);
-    addClickForRoute(sortedDestinations, i)
+    addClickForRoute(sortedDestinations, i);
   }
 }
 
@@ -185,12 +185,6 @@ function addClickForRoute(locations, id) {
     getRouteFunction($(".place" + id).data("id"), locations);
   });
 }
-
-// function addSteps(distanceMeters, id) {
-//   var steps = Math.round((distanceMeters * 100) / gon.stride_length_walking);
-//   $(".place" + id).append("<span> steps: " + steps + "</span>");
-// }
-
 
 function sortBySteps(places) {
   places.sort(function(a, b) {
