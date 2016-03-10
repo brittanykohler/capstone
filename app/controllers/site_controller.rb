@@ -53,7 +53,7 @@ class SiteController < ApplicationController
       @current_steps = current_user.get_current_steps
       @step_goal = current_user.get_step_goal
       if @step_goal > @current_steps
-        @@steps_needed = @step_goal - @current_steps
+        @steps_needed = @step_goal - @current_steps
         @steps_needed_message = "#{@steps_needed} STEPS TO GO!"
       else # daily step goal is completed
         @steps_needed = 1000
