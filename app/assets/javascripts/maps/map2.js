@@ -54,9 +54,8 @@ function initialize() {
         destinations = setDistances(destinations, pos);
         destinations = setDistanceDiffs(destinations);
         destinations = sortByProximity(destinations);
-        console.log(destinations);
         if (destinations.length > 0) {
-          listPlaces(destinations);
+          listPlaces(destinations.slice(0, 5));
         } else {
           displayPlacesError();
         }
@@ -152,22 +151,49 @@ function sortByProximity(destinations) {
 }
 
 
-function listPlaces(destinations) {
-  // query limit is 10 per second
-  for (var i = 0; i < 5; i++) {
-    getName(destinations[i], i, function(name, id) {
-      destinations[id].name = name;
-      getDistance(destinations[id], id, function(distanceMeters, id) {
-        destinations[id].steps = calcSteps(distanceMeters);
+// function listPlaces(destinations) {
+//   // query limit is 10 per second
+//   for (var i = 0; i < 5; i++) {
+//     getName(destinations[i], i, function(name, id) {
+//       destinations[id].name = name;
+//       getDistance(destinations[id], id, function(distanceMeters, id) {
+//         destinations[id].steps = calcSteps(distanceMeters);
+//       });
+//     });
+//   }
+//   //sort
+//   var sortedDestinations = sortBySteps(destinations.slice(0, 5));
+//   //div stuff
+// }
+
+function addNameAndSteps(destination) {
+  return new Promise(function(fulfill, reject) {
+    getName(destination, 0, function(name, id) {
+      destination.name = name;
+      getDistance(destination, 0, function(distanceMeters, id) {
+        destination.steps = calcSteps(distanceMeters);
+        fulfill(destination);
       });
-      // console.log(destinations[id]);
-      // addPlace(name, id, destinations);
-      // getDistance(destinations[id], id, addDistance);
     });
-  }
-  //sort
-  //div stuff
-  console.log(destinations[0]);
+  });
+}
+
+
+function listPlaces(destinations) {
+  return Promise.all(destinations.map(function(destination) {
+    return addNameAndSteps(destination);
+  })).then(function(destinationsWithNamesAndSteps) {
+    var sortedDestinations = sortBySteps(destinationsWithNamesAndSteps);
+  });
+}
+
+
+
+function sortBySteps(places) {
+  places.sort(function(a, b) {
+    return a.steps - b.steps;
+  });
+  return places;
 }
 
 function calcSteps(distance) {
