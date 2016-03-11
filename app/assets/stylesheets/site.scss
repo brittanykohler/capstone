@@ -9,6 +9,8 @@ body {
   font-family: 'Pathway Gothic One', sans-serif;
   margin-left: 3px;
   margin-right: 3px;
+  background-color: #292929;
+  color: #FFFFFF;
 }
 
 
@@ -119,6 +121,7 @@ a.navbar-brand {
 .date-box {
   font-size: 36px;
   text-align: center;
+  letter-spacing: 5px;
 }
 
 .steps-box {
@@ -137,7 +140,7 @@ a.navbar-brand {
 
 .percentage-box-current-steps {
   height: 50px;
-  background-color: #00A9B6;
+  background-color: #F7484E;
 }
 
 .steps-to-go-box {
