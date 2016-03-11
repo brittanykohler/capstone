@@ -6,7 +6,7 @@
 @import "font-awesome";
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Pathway Gothic One', sans-serif;
   margin-left: 3px;
   margin-right: 3px;
 }
@@ -117,12 +117,12 @@ a.navbar-brand {
 //------ Index Page Styles ---------------------
 
 .date-box {
-  font-size: 24px;
+  font-size: 36px;
   text-align: center;
 }
 
 .steps-box {
-  font-size: 18px;
+  font-size: 24px;
   text-align: center;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -143,26 +143,29 @@ a.navbar-brand {
 .steps-to-go-box {
   text-align: center;
   margin-top: 15px;
+  font-size: 20px;
 }
 
-.get-trip-button, .view-stats-button {
-  width: 200px;
-  height: 40px;
-  border-style: solid;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  margin-top: 15px;
-  color: #000000;
-  margin-top: 15px;
-  border-radius: 75px 75px 75px 75px;
-}
+// .get-trip-button, .view-stats-button {
+//   width: 200px;
+//   height: 40px;
+//   border-style: solid;
+//   margin-left: auto;
+//   margin-right: auto;
+//   text-align: center;
+//   margin-top: 15px;
+//   color: #000000;
+//   margin-top: 15px;
+//   border-radius: 75px 75px 75px 75px;
+// }
+
+
 .index-button a:hover {
   text-decoration: none;
 }
 
 .index-button {
-  width: 200px;
+  width: 90px;
   height: 40px;
   margin-left: auto;
   margin-right: auto;
@@ -171,6 +174,42 @@ a.navbar-brand {
   margin-bottom: 15px;
 }
 
+.hex1{
+    background-color: #333333;
+    text-align: center;
+    line-height: 51.96px;
+    height: 51.96px;
+    width: 90px;
+    margin: 25.98px 0px;
+    position: relative;
+    z-index: 1;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.hex1:after,
+.hex1:before{
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    content: "";
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+.hex1:before{
+    border-top: 25.98px solid transparent;
+    border-bottom: 25.98px solid #333333;
+    // top: -100px;
+    bottom: 100%;
+}
+
+.hex1:after{
+    // bottom: -100px;
+    top: 100%;
+    border-top: 25.98px solid #333333;
+    border-bottom: 25.98px solid transparent;
+}
 
 //------ End Index Page Styles -----------------
 
