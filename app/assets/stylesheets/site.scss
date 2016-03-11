@@ -6,11 +6,12 @@
 @import "font-awesome";
 
 body {
-  font-family: 'Pathway Gothic One', sans-serif;
+  // font-family: 'Pathway Gothic One', sans-serif;
+  font-family: 'News Cycle', sans-serif;
   margin-left: 3px;
   margin-right: 3px;
-  background-color: #292929;
-  color: #FFFFFF;
+  background-color: #F5F5F5;
+  color: #292929;
 }
 
 
@@ -21,15 +22,15 @@ body {
 }
 
 .icon-bar {
-  background-color: #000000;
+  background-color: #292929;
 }
 
 a.navbar-brand {
-  color: #000000;
+  color: #292929;
 }
 
 .navbar a {
-  color: #000000;
+  color: #292929;
 }
 
  //------ Login Page Styles-----------------
@@ -121,7 +122,8 @@ a.navbar-brand {
 .date-box {
   font-size: 36px;
   text-align: center;
-  letter-spacing: 5px;
+  letter-spacing: 7px;
+  // font-family: 'Bad Script', cursive;
 }
 
 .steps-box {
@@ -129,6 +131,7 @@ a.navbar-brand {
   text-align: center;
   margin-top: 15px;
   margin-bottom: 15px;
+  letter-spacing: 2px;
 }
 
 .percentage-box-total {
@@ -140,7 +143,7 @@ a.navbar-brand {
 
 .percentage-box-current-steps {
   height: 50px;
-  background-color: #F7484E;
+  background-color: #B3B3B3;
 }
 
 .steps-to-go-box {
@@ -178,7 +181,7 @@ a.navbar-brand {
 }
 
 .hex1{
-    background-color: #333333;
+    background-color: #16A6B6;
     text-align: center;
     line-height: 51.96px;
     height: 51.96px;
@@ -187,7 +190,10 @@ a.navbar-brand {
     position: relative;
     z-index: 1;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 2px;
+    font-weight: 100;
 }
 
 .hex1:after,
@@ -202,7 +208,7 @@ a.navbar-brand {
 
 .hex1:before{
     border-top: 25.98px solid transparent;
-    border-bottom: 25.98px solid #333333;
+    border-bottom: 25.98px solid #16A6B6;
     // top: -100px;
     bottom: 100%;
 }
@@ -210,8 +216,20 @@ a.navbar-brand {
 .hex1:after{
     // bottom: -100px;
     top: 100%;
-    border-top: 25.98px solid #333333;
+    border-top: 25.98px solid #16A6B6;
     border-bottom: 25.98px solid transparent;
+}
+
+.orange-hex {
+  background-color: #EE6557;
+}
+
+.orange-hex:before {
+  border-bottom: 25.98px solid #EE6557;
+}
+
+.orange-hex:after {
+  border-top: 25.98px solid #EE6557;
 }
 
 .space {
