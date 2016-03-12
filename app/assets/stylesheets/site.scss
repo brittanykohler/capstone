@@ -308,9 +308,7 @@ hr {
   background-color: #00A9B6;
 }
 
-.steps-needed-box {
-  text-align: right;
-}
+
 //------ End Results Page Styles -----------------
 
 
@@ -329,7 +327,14 @@ hr {
   margin-top: 15px;
 }
 
+.current-steps-box, .steps-needed-box {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
 
+.steps-needed-box {
+  text-align: right;
+}
 
 
 //------------------ Hexagon Styling for Index Page ----------------------------

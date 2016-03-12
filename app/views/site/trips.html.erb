@@ -1,8 +1,8 @@
 <% if logged_in? %>
   <%= render "shared/nav" %>
   <div class="row">
-    <div class="col-xs-6">
-        STEPS: <%= @current_steps %> / <%= @step_goal %>
+    <div class="col-xs-6 current-steps-box">
+        STEPS: <%= @current_steps %>
     </div>
     <div class="col-xs-6 steps-needed-box">
       <%= @steps_needed_message %>
@@ -10,11 +10,12 @@
   </div>
   <div class="row">
     <div class="col-xs-12 text-center">
-      Let's get some steps! What kind of trip would you like to take?
+      LET'S GET SOME STEPS! WHAT KIND OF TRIP WOULD YOU LIKE TO TAKE?
     </div>
   </div>
 
   <%= form_tag results_path do %>
+    <!-- Trip Type -->
     <div class="btn-group btn-toggle" data-toggle="buttons">
       <label class="btn trip-btn active">
         <input name="trip-type" value="Round-trip" checked="" type="radio"> Round-trip
@@ -23,6 +24,8 @@
         <input name="trip-type" value="One-way"  type="radio"> One-way
       </label>
     </div>
+
+    <!-- Destination Type -->
     <div class="row">
       <div class="col-xs-12">
         <div class="btn-group btn-toggle" data-toggle="buttons">
@@ -55,44 +58,6 @@
 
     <%= submit_tag("Submit") %>
   <% end %>
-<!--
-  <div class="row place-choice-row">
-    <%= link_to(results_path("park")) do %>
-      <div class="col-xs-6 place-choice-box">
-        PARK
-      </div>
-    <% end %>
-    <%= link_to(results_path("museum")) do %>
-      <div class="col-xs-6 place-choice-box">
-        MUSEUM
-      </div>
-    <% end %>
-  </div>
-  <div class="row place-choice-row">
-    <%= link_to(results_path("store")) do %>
-      <div class="col-xs-6 place-choice-box">
-        STORE
-      </div>
-    <% end %>
-    <%= link_to(results_path("school")) do %>
-      <div class="col-xs-6 place-choice-box">
-        SCHOOL
-      </div>
-    <% end %>
-  </div>
-  <div class="row place-choice-row">
-    <%= link_to(results_path("restaurant")) do %>
-      <div class="col-xs-6 place-choice-box">
-        RESTAURANT
-      </div>
-    <% end %>
-    <%= link_to(results_path("random")) do %>
-      <div class="col-xs-6 place-choice-box">
-        I DON'T CARE
-      </div>
-    <% end %>
-  </div> -->
-
 <% else %>
   <div id="login-image">
     <div id="app-logo">
