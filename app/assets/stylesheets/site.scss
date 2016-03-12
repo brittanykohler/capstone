@@ -152,20 +152,6 @@ a.navbar-brand {
   letter-spacing: 2px;
 }
 
-// .get-trip-button, .view-stats-button {
-//   width: 200px;
-//   height: 40px;
-//   border-style: solid;
-//   margin-left: auto;
-//   margin-right: auto;
-//   text-align: center;
-//   margin-top: 15px;
-//   color: #000000;
-//   margin-top: 15px;
-//   border-radius: 75px 75px 75px 75px;
-// }
-
-
 .index-button a:hover {
   text-decoration: none;
 }
@@ -314,17 +300,20 @@ hr {
 
 //------ Trips Page Styles -----------------
 
-.trip-btn.active {
-  background-color: #00A9B6;
+.trip-btn.active, .place-btn.active {
+  background-color: #EE6557;
+  letter-spacing: 2px;
 }
 
-.trip-btn {
-  background-color: #e6e6e6;
+.trip-btn, .place-btn {
+  background-color: #B3B3B3;
   margin-top: 15px;
+  letter-spacing: 2px;
 }
 
 .steps-form-box {
   margin-top: 15px;
+  letter-spacing: 2px;
 }
 
 .current-steps-box, .steps-needed-box {
@@ -336,6 +325,20 @@ hr {
   text-align: right;
 }
 
+.trip-message {
+  margin-top: 15px;
+  letter-spacing: 2px;
+}
+
+.trip-submit-btn {
+  background-color: #16A6B6;
+  border-style: none;
+  letter-spacing: 2px;
+}
+
+#input.steps {
+  background-color: #F5F5F5;
+}
 
 //------------------ Hexagon Styling for Index Page ----------------------------
 #hexGrid {

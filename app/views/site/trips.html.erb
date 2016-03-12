@@ -9,55 +9,57 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 text-center">
-      LET'S GET SOME STEPS! WHAT KIND OF TRIP WOULD YOU LIKE TO TAKE?
+    <div class="col-xs-12 text-center trip-message">
+      TIME TO GET SOME STEPS! WHAT KIND OF TRIP WOULD YOU LIKE TO TAKE?
     </div>
   </div>
 
-  <%= form_tag results_path do %>
-    <!-- Trip Type -->
-    <div class="btn-group btn-toggle" data-toggle="buttons">
-      <label class="btn trip-btn active">
-        <input name="trip-type" value="Round-trip" checked="" type="radio"> Round-trip
-      </label>
-      <label class="btn trip-btn">
-        <input name="trip-type" value="One-way"  type="radio"> One-way
-      </label>
-    </div>
+  <div class="col-xs-12 text-center">
+    <%= form_tag results_path do %>
+      <!-- Trip Type -->
+      <div class="btn-group btn-toggle" data-toggle="buttons">
+        <label class="btn trip-btn active">
+          <input name="trip-type" value="Round-trip" checked="" type="radio"> ROUND-TRIP
+        </label>
+        <label class="btn trip-btn">
+          <input name="trip-type" value="One-way"  type="radio"> ONE-WAY
+        </label>
+      </div>
 
-    <!-- Destination Type -->
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="btn-group btn-toggle" data-toggle="buttons">
-          <label class="btn trip-btn active">
-            <input name="place-type" value="park" checked="" type="radio"> Park
-          </label>
-          <label class="btn trip-btn">
-            <input name="place-type" value="store" type="radio"> Store
-          </label>
-          <label class="btn trip-btn">
-            <input name="place-type" value="restaurant" type="radio"> Restaurant
-          </label>
-          <label class="btn trip-btn">
-            <input name="place-type" value="museum" type="radio"> Museum
-          </label>
-          <label class="btn trip-btn">
-            <input name="place-type" value="school" type="radio"> School
-          </label>
-          <label class="btn trip-btn">
-            <input name="place-type" value="random" type="radio"> I don't care
-          </label>
+      <!-- Destination Type -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="btn-group btn-toggle" data-toggle="buttons">
+            <label class="btn place-btn active">
+              <input name="place-type" value="park" checked="" type="radio"> PARK
+            </label>
+            <label class="btn place-btn">
+              <input name="place-type" value="store" type="radio"> STORE
+            </label>
+            <label class="btn place-btn">
+              <input name="place-type" value="restaurant" type="radio"> RESTAURANT
+            </label>
+            <label class="btn place-btn">
+              <input name="place-type" value="museum" type="radio"> MUSEUM
+            </label>
+            <label class="btn place-btn">
+              <input name="place-type" value="school" type="radio"> SCHOOL
+            </label>
+            <label class="btn place-btn">
+              <input name="place-type" value="random" type="radio"> RANDOM
+            </label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group steps-form-box">
-      <%= label_tag(:steps, "Steps:") %>
-      <%= number_field_tag(:steps, value = @steps_needed) %>
-    </div>
+      <div class="form-group steps-form-box">
+        <%= label_tag(:steps, "TRIP LENGTH (IN STEPS):") %>
+        <%= number_field_tag(:steps, value = @steps_needed) %>
+      </div>
 
-    <%= submit_tag("Submit") %>
-  <% end %>
+      <%= submit_tag("GET TRIPS", :class => "trip-submit-btn") %>
+    <% end %>
+  </div>
 <% else %>
   <div id="login-image">
     <div id="app-logo">
