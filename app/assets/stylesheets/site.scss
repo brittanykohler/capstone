@@ -5,33 +5,38 @@
 @import "bootstrap";
 @import "font-awesome";
 
+$dk-gray: #292929;
+$orange: #EE6557;
+$teal: #16A6B6;
+$lt-gray: #B3B3B3;
+
 body {
   // font-family: 'Pathway Gothic One', sans-serif;
   font-family: 'News Cycle', sans-serif;
   margin-left: 3px;
   margin-right: 3px;
   background-color: #F5F5F5;
-  color: #292929;
+  color: $dk-gray;
   letter-spacing: 2px;
 }
 
 
-//------- Nav Bar Styles
+//------- Nav Bar Styles -----------------
 
 .navbar-default .navbar-toggle {
   border: none;
 }
 
 .icon-bar {
-  background-color: #292929;
+  background-color: $dk-gray;
 }
 
 a.navbar-brand {
-  color: #292929;
+  color: $dk-gray;
 }
 
 .navbar a {
-  color: #292929;
+  color: $dk-gray;
 }
 
  //------ Login Page Styles-----------------
@@ -116,7 +121,7 @@ a.navbar-brand {
     margin-top: 5%
   }
 }
-//------ End Login Page Styles -----------------
+
 
 //------ Index Page Styles ---------------------
 
@@ -143,7 +148,7 @@ a.navbar-brand {
 
 .percentage-box-current-steps {
   height: 50px;
-  background-color: #B3B3B3;
+  background-color: $lt-gray;
 }
 
 .steps-to-go-box {
@@ -168,7 +173,7 @@ a.navbar-brand {
 }
 
 .hex1{
-    background-color: #B3B3B3;
+    background-color: $lt-gray;
     text-align: center;
     line-height: 63.51px;
     height: 63.51px;
@@ -195,7 +200,7 @@ a.navbar-brand {
 
 .hex1:before{
     border-top: 31.75426px solid transparent;
-    border-bottom: 31.75426px solid #B3B3B3;
+    border-bottom: 31.75426px solid $lt-gray;
     // top: -100px;
     bottom: 100%;
 }
@@ -203,7 +208,7 @@ a.navbar-brand {
 .hex1:after{
     // bottom: -100px;
     top: 100%;
-    border-top: 31.75426px solid #B3B3B3;
+    border-top: 31.75426px solid $lt-gray;
     border-bottom: 31.75426px solid transparent;
 }
 
@@ -236,8 +241,6 @@ a.navbar-brand {
   margin-top: 80px;
 }
 
-//------ End Index Page Styles -----------------
-
 //------ Results Page Styles -----------------
 
 #map {
@@ -259,9 +262,17 @@ a.navbar-brand {
   text-decoration: none;
 }
 
-.start-over-box {
-  margin-left: 0px;
+.start-over-button {
+  background-color: $teal;
+  border-style: none;
+  width: 100px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  display: block;
   text-align: center;
+  padding-top: 10px;
 }
 
 .start-over-box a {
@@ -328,10 +339,6 @@ hr {
 
 }
 
-
-//------ End Results Page Styles -----------------
-
-
 //------ Trips Page Styles -----------------
 
 .btn-group {
@@ -344,7 +351,7 @@ hr {
 }
 
 .trip-btn, .place-btn {
-  background-color: #B3B3B3;
+  background-color: $lt-gray;
   font-size: 12px;
   font-weight: 300;
   margin-top: 15px;
@@ -390,7 +397,7 @@ hr {
 }
 
 .trip-submit-btn {
-  background-color: #16A6B6;
+  background-color: $teal;
   border-style: none;
   letter-spacing: 2px;
   // width: 100px;
@@ -483,7 +490,7 @@ hr {
 }
 
 .hexIn:hover {
-  color: #292929;
+  color: $dk-gray;
 }
 
 .hexInOrange {
@@ -491,11 +498,11 @@ hr {
 }
 
 .hexInGray {
-  background-color: #B3B3B3;
+  background-color: $lt-gray;
 }
 
 .hexInTeal {
-  background-color: #16A6B6;
+  background-color: $teal;
 }
 
 /*** HEX CONTENT **********************************************************************/
