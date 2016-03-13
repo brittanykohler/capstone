@@ -37,6 +37,9 @@ class SiteController < ApplicationController
       gon.place_type = params[:'place-type']
       gon.trip_type =  params[:'trip-type']
       gon.steps_needed = params[:steps]
+      # @steps_requested = params[:steps]
+      # @place_type = params[:'place-type'].upcase
+      # @trip_type = params[:'trip-type'].upcase
     end
   end
 

@@ -226,15 +226,27 @@ a.navbar-brand {
 }
 
 .orange-hex {
-  background-color: #EE6557;
+  background-color: $orange;
 }
 
 .orange-hex:before {
-  border-bottom: 25.98px solid #EE6557;
+  border-bottom: 25.98px solid $orange;
 }
 
 .orange-hex:after {
-  border-top: 25.98px solid #EE6557;
+  border-top: 25.98px solid $orange;
+}
+
+.teal-hex {
+  background-color: $teal;
+}
+
+.teal-hex:before {
+  border-bottom: 25.98px solid $teal;
+}
+
+.teal-hex:after {
+  border-top: 25.98px solid $teal;
 }
 
 .space {
@@ -316,10 +328,23 @@ hr {
 }
 
 .highlighted-cell {
-  background-color: $orange;
+  background-color: $lt-gray;
 }
 
 #trip-description {
+  text-align: center;
+}
+
+.hex1.results-hex {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.results-display {
+  width: 375px;
+  margin: auto;
   text-align: center;
 }
 
@@ -336,7 +361,67 @@ hr {
     width: 650px;
     margin: auto;
   }
+}
 
+// Iphone 5 adjustment
+@media (max-width: 320px) {
+  .results-hex {
+    margin-left: 5px;
+  }
+  .results-display {
+    width: 320px;
+  }
+
+  .results-hex.hex1{
+      text-align: center;
+      line-height: 51.96px;
+      height: 51.96px;
+      width: 90px;
+      margin: 25.98px 0px;
+      font-size: 10px;
+  }
+
+  .results-hex.hex1:after,
+  .results-hex.hex1:before{
+      border-left: 45px solid transparent;
+      border-right: 45px solid transparent;
+      content: "";
+      position: absolute;
+      left: 0;
+      z-index: -1;
+  }
+
+  .results-hex.hex1:before{
+      border-top: 25.9807px solid transparent;
+      border-bottom: 25.9807px solid $lt-gray;
+      bottom: 100%;
+  }
+
+  .results-hex.hex1:after{
+      top: 100%;
+      border-top: 25.9807px solid $lt-gray;
+      border-bottom: 25.9807px solid transparent;
+  }
+
+  .results-hex.orange-hex:before{
+      border-top: 25.9807px solid transparent;
+      border-bottom: 25.9807px solid $orange;
+  }
+
+  .results-hex.orange-hex:after{
+      border-top: 25.9807px solid $orange;
+      border-bottom: 25.9807px solid transparent;
+  }
+
+  .results-hex.teal-hex:before{
+      border-top: 25.9807px solid transparent;
+      border-bottom: 25.9807px solid $teal;
+  }
+
+  .results-hex.teal-hex:after{
+      border-top: 25.9807px solid $teal;
+      border-bottom: 25.9807px solid transparent;
+  }
 }
 
 //------ Trips Page Styles -----------------
