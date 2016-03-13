@@ -280,7 +280,7 @@ a.navbar-brand {
 }
 
 .start-over-box a:hover {
-  color: #bfbfbf;
+  background-color: $lt-gray;
   text-decoration: none;
 }
 
@@ -312,11 +312,11 @@ hr {
 }
 
 .place-box:hover {
-  background-color: #00A9B6;
+  background-color: $lt-gray;
 }
 
 .highlighted-cell {
-  background-color: #00A9B6;
+  background-color: $orange;
 }
 
 #trip-description {
@@ -404,6 +404,11 @@ hr {
   height: 40px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.trip-submit-btn:hover {
+  background-color: $lt-gray;
+  text-decoration: none;
 }
 
 .btn-group > .btn, .btn-group-vertical > .btn {
