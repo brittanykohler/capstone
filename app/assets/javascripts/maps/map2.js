@@ -153,7 +153,7 @@ function sortByProximity(destinations) {
 function addNameAndSteps(destination) {
   return new Promise(function(fulfill, reject) {
     getName(destination, 0, function(name, id) {
-      destination.name = name;
+      destination.name = name.toUpperCase();
       getDistance(destination, 0, function(distanceMeters, id) {
         destination.steps = calcSteps(distanceMeters);
         fulfill(destination);
