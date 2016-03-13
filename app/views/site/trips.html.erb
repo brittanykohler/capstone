@@ -1,10 +1,10 @@
 <% if logged_in? %>
   <%= render "shared/nav" %>
   <div class="row">
-    <div class="col-xs-6 current-steps-box">
+    <div class="col-xs-5 current-steps-box">
         STEPS: <%= @current_steps %>
     </div>
-    <div class="col-xs-6 steps-needed-box">
+    <div class="col-xs-7 steps-needed-box">
       <%= @steps_needed_message %>
     </div>
   </div>

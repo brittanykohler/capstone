@@ -357,6 +357,12 @@ hr {
   }
 }
 
+@media (max-width: 320px) {
+  .current-steps-box, .steps-needed-box {
+    font-size: 12px;
+  }
+}
+
 .trip-message {
   margin-top: 15px;
   letter-spacing: 2px;
