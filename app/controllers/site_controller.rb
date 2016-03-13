@@ -35,6 +35,8 @@ class SiteController < ApplicationController
       gon.distance_needed = @distance_needed
       gon.stride_length_walking = current_user.stride_length_walking
       gon.place_type = params[:'place-type']
+      gon.trip_type =  params[:'trip-type']
+      gon.steps_needed = params[:steps]
     end
   end
 

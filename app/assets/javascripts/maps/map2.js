@@ -173,8 +173,12 @@ function listPlaces(destinations) {
 }
 
 function addToPage(sortedDestinations) {
+  $(".places").append("<p id='trip-description'>" + gon.trip_type.toUpperCase() + " " + gon.place_type.toUpperCase() + " OPTIONS TO GET " + gon.steps_needed + " STEPS: </p>");
   for (var i = 0; i < sortedDestinations.length; i++) {
     $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " steps: " + sortedDestinations[i].steps + "</p>");
+    if (gon.trip_type == "Round-trip") {
+      $(".place" + i).append(" (TOTAL STEPS: " + sortedDestinations[i].steps * 2 + ")");
+    }
     $(".place" + i).data("id", i);
     addClickForRoute(sortedDestinations, i);
   }
