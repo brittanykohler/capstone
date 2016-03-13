@@ -175,9 +175,8 @@ function listPlaces(destinations) {
 function addToPage(sortedDestinations) {
   $(".places").append("<div class='results-display'> <div class='results-hex hex1 orange-hex'>" + gon.trip_type.toUpperCase() + "</div>" + "<div class='results-hex hex1'>" + gon.place_type.toUpperCase() + "</div>"
    + "<div class='results-hex hex1 teal-hex'>STEPS: " + gon.steps_needed + "</div></div>");
-  // + "</div>");
   for (var i = 0; i < sortedDestinations.length; i++) {
-    $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " - steps: " + sortedDestinations[i].steps + "</p>");
+    $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " - STEPS: " + sortedDestinations[i].steps + "</p>");
     if (gon.trip_type == "Round-trip") {
       $(".place" + i).append(" (TOTAL STEPS: " + sortedDestinations[i].steps * 2 + ")");
     }

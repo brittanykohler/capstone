@@ -49,7 +49,14 @@ class SiteController < ApplicationController
       @chart_data, @chart_days = current_user.get_steps_for_week
       gon.chart_data = @chart_data
       gon.chart_days = @chart_days
+      @step_goal = current_user.get_step_goal
       gon.step_goal = @step_goal
+      badge_info = current_user.get_badges
+      @current_badge = badge_info[:name]
+      next_badge_info = current_user.get_next_badge(badge_info)
+      @next_badge = next_badge_info[:name]
+      @lifetime_distance = current_user.get_lifetime_distance
+      @steps_to_next_badge = current_user.get_steps_to_next_badge(next_badge_info, @lifetime_distance)
     end
   end
 

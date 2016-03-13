@@ -11,18 +11,19 @@ $(function () {
       chart: {
         type: 'column',
         style: {
-          fontFamily: 'Quicksand'
-        }
+          fontFamily: 'Lato'
+        },
+        backgroundColor: '#F5F5F5',
       },
       title: {
-        text: 'Weekly Steps'
+        text: 'DAILY STEPS - LAST 7 DAYS'
       },
       xAxis: {
         categories: gon.chart_days
       },
       yAxis: {
         title: {
-            text: 'Steps'
+            text: 'STEPS'
         },
         plotLines: [{
           color: 'black', // Color value
@@ -34,8 +35,8 @@ $(function () {
       series: [{
         showInLegend: false,
         data: gon.chart_data,
-        color: "#00A9B6",
-        name: "Steps"
+        color: "#EE6557",
+        name: "STEPS"
       }],
       credits: {
           enabled: false
