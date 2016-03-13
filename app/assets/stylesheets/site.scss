@@ -314,7 +314,7 @@ hr {
 //------ Trips Page Styles -----------------
 
 .btn-group {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .trip-btn.active, .place-btn.active {
@@ -325,6 +325,7 @@ hr {
 .trip-btn, .place-btn {
   background-color: #B3B3B3;
   font-size: 12px;
+  font-weight: 300;
   margin-top: 15px;
   letter-spacing: 2px;
   margin-left: 2px;
@@ -359,6 +360,34 @@ hr {
   margin-left: auto;
   margin-right: auto;
 }
+
+.btn-group > .btn, .btn-group-vertical > .btn {
+  float: none;
+}
+
+// Responsive design for trip page hexagons
+
+// First break point - 5 across
+@media (max-width:720px) {
+  .place-random.hex1 {
+    margin-top: 45px;
+  }
+}
+
+// Break point - 4 across
+@media (max-width: 605px){
+  .place-school.hex1 {
+    margin-top: 45px;
+  }
+}
+
+// Break point - 3 across
+@media (max-width: 491px){
+  .place-museum.hex1 {
+    margin-top: 45px;
+  }
+}
+
 
 //------------------ Hexagon Styling for Index Page ----------------------------
 #hexGrid {
