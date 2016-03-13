@@ -365,6 +365,10 @@ hr {
   float: none;
 }
 
+.place-toggle {
+  margin-top: 40px;
+}
+
 // Responsive design for trip page hexagons
 
 // First break point - 5 across
@@ -384,6 +388,13 @@ hr {
 // Break point - 3 across
 @media (max-width: 491px){
   .place-museum.hex1 {
+    margin-top: 45px;
+  }
+}
+
+// Break point - 2 across
+@media (max-width: 376px){
+  .place-restaurant.hex1 {
     margin-top: 45px;
   }
 }
