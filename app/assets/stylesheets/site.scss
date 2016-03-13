@@ -337,6 +337,10 @@ hr {
   letter-spacing: 2px;
 }
 
+.current-steps-box {
+  padding-left: 30px;
+}
+
 .current-steps-box, .steps-needed-box {
   font-size: 16px;
   letter-spacing: 2px;
@@ -344,6 +348,13 @@ hr {
 
 .steps-needed-box {
   text-align: right;
+  padding-right: 40px;
+}
+
+@media (max-width: 425px) {
+  .current-steps-box, .steps-needed-box {
+    font-size: 14px;
+  }
 }
 
 .trip-message {
