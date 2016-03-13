@@ -167,11 +167,11 @@ a.navbar-brand {
 }
 
 .hex1{
-    background-color: #16A6B6;
+    background-color: #B3B3B3;
     text-align: center;
-    line-height: 51.96px;
-    height: 51.96px;
-    width: 90px;
+    line-height: 63.51px;
+    height: 63.51px;
+    width: 110px;
     margin: 25.98px 0px;
     position: relative;
     z-index: 1;
@@ -184,8 +184,8 @@ a.navbar-brand {
 
 .hex1:after,
 .hex1:before{
-    border-left: 45px solid transparent;
-    border-right: 45px solid transparent;
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
     content: "";
     position: absolute;
     left: 0;
@@ -193,8 +193,8 @@ a.navbar-brand {
 }
 
 .hex1:before{
-    border-top: 25.98px solid transparent;
-    border-bottom: 25.98px solid #16A6B6;
+    border-top: 31.75426px solid transparent;
+    border-bottom: 31.75426px solid #B3B3B3;
     // top: -100px;
     bottom: 100%;
 }
@@ -202,8 +202,21 @@ a.navbar-brand {
 .hex1:after{
     // bottom: -100px;
     top: 100%;
-    border-top: 25.98px solid #16A6B6;
-    border-bottom: 25.98px solid transparent;
+    border-top: 31.75426px solid #B3B3B3;
+    border-bottom: 31.75426px solid transparent;
+}
+
+.hex1.active:before{
+    border-bottom: 31.75426px solid #EE6557;
+}
+
+.hex1.active:after{
+    border-top: 31.75426px solid #EE6557;
+}
+
+.btn.active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .orange-hex {
@@ -300,6 +313,10 @@ hr {
 
 //------ Trips Page Styles -----------------
 
+.btn-group {
+  margin-top: 20px;
+}
+
 .trip-btn.active, .place-btn.active {
   background-color: #EE6557;
   letter-spacing: 2px;
@@ -307,8 +324,11 @@ hr {
 
 .trip-btn, .place-btn {
   background-color: #B3B3B3;
+  font-size: 12px;
   margin-top: 15px;
   letter-spacing: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .steps-form-box {
@@ -334,10 +354,10 @@ hr {
   background-color: #16A6B6;
   border-style: none;
   letter-spacing: 2px;
-}
-
-#input.steps {
-  background-color: #F5F5F5;
+  // width: 100px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 //------------------ Hexagon Styling for Index Page ----------------------------
