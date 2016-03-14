@@ -35,7 +35,7 @@ $(function () {
       series: [{
         showInLegend: false,
         data: gon.chart_data,
-        color: "#EE6557",
+        color: "#B3B3B3",
         name: "STEPS"
       }],
       credits: {

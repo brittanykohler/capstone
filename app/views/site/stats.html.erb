@@ -2,18 +2,37 @@
   <%= render "shared/nav" %>
   <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
   <div id="chart" style="width:100%; height:400px;"></div>
-  <div>
-    LIFETIME MILES: <%= @lifetime_distance %>
-  </div>
-  <div>
-    CURRENT BADGE: <%= @current_badge %>
-  </div>
-  <div>
-    NEXT BADGE: <%= @next_badge %>
-  </div>
-  <div>
-    STEPS TO NEXT BADGE: <%= @steps_to_next_badge %>
-  </div>
+  <ul id="hexGrid">
+   <li class="hex">
+     <a class="hexIn hexInOrange">
+       <h1 class="hex-text">LIFETIME MILES: <%= @lifetime_distance %></h1>
+     </a>
+   </li>
+   <li class="hex">
+     <a class="hexIn hexInGray">
+       <!-- <%= image_tag("http://static0.fitbit.com/images/badges_new/300px/badge_lifetime_miles990.png") %> -->
+       <h1 class="hex-text">CURRENT BADGE: <%= @current_badge %></h1>
+     </a>
+   </li>
+   <li class="hex">
+     <a class="hexIn hexInTeal">
+       <!-- <%= image_tag("http://static0.fitbit.com/images/badges_new/300px/badge_lifetime_miles1600.png") %> -->
+       <h1 class="hex-text">NEXT BADGE: <%= @next_badge %></h1>
+     </a>
+   </li>
+   <li class="hex">
+       <a class="hexIn hexInOrange" href="#">
+         <h1 class="hex-text">MILES TO NEXT BADGE: <%= @miles_to_next_badge %></h1>
+       </a>
+   </li>
+   <li class="hex">
+       <a class="hexIn hexInGray">
+         <h1 class="hex-text">STEPS TO NEXT BADGE: <%= @steps_to_next_badge %></h1>
+       </a>
+   </li>
+  </ul>
+
+
 
 <% else %>
   <div id="login-image">

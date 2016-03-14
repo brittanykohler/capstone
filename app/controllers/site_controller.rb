@@ -37,9 +37,6 @@ class SiteController < ApplicationController
       gon.place_type = params[:'place-type']
       gon.trip_type =  params[:'trip-type']
       gon.steps_needed = params[:steps]
-      # @steps_requested = params[:steps]
-      # @place_type = params[:'place-type'].upcase
-      # @trip_type = params[:'trip-type'].upcase
     end
   end
 
@@ -51,11 +48,14 @@ class SiteController < ApplicationController
       gon.chart_days = @chart_days
       @step_goal = current_user.get_step_goal
       gon.step_goal = @step_goal
+
+      # for other stats
       badge_info = current_user.get_badges
-      @current_badge = badge_info[:name]
+      @current_badge = badge_info[:name].upcase
       next_badge_info = current_user.get_next_badge(badge_info)
-      @next_badge = next_badge_info[:name]
-      @lifetime_distance = current_user.get_lifetime_distance
+      @next_badge = next_badge_info[:name].upcase
+      @lifetime_distance = (current_user.get_lifetime_distance).round
+      @miles_to_next_badge = (next_badge_info[:value] - @lifetime_distance).round
       @steps_to_next_badge = current_user.get_steps_to_next_badge(next_badge_info, @lifetime_distance)
     end
   end
