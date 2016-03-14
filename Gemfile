@@ -21,8 +21,8 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 
 # omniauth
 gem 'omniauth'
-gem 'omniauth-oauth2', '~> 1.3.1'
-gem 'omniauth-fitbit'
+gem 'omniauth-oauth2', '~> 1.4'
+gem 'omniauth-fitbit', '>= 2.0'
 
 # Use rails variables in JS
 gem 'gon'
