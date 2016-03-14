@@ -451,7 +451,7 @@ hr {
   margin-left: auto;
   margin-right: auto;
   border: none;
-  border-radius: 0 !important;
+  border-radius: 0 !important; // need to override rounded buttons
 }
 
 .trip-btn, .place-btn {
@@ -550,7 +550,7 @@ hr {
 }
 
 // Break point - 2 across
-@media (max-width: 376px){
+@media (max-width: 374px){
   .place-restaurant.hex1 {
     margin-top: 45px;
   }
