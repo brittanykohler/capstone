@@ -410,24 +410,24 @@ hr {
       border-bottom: 25.9807px solid transparent;
   }
 
-  .orange-hex.results-hex:before{
-      border-top: 31.75426px solid transparent;
-      border-bottom: 31.75426px solid $orange;
+  .results-hex.hex1.orange-hex:before{
+      border-top: 25.9807px solid transparent;
+      border-bottom: 25.9807px solid $orange;
   }
 
-  .results-hex.orange-hex:after{
-      border-top: 31.75426px solid $orange;
-      border-bottom: 31.75426px solid transparent;
+  .results-hex.hex1.orange-hex:after{
+      border-top: 25.9807px solid $orange;
+      border-bottom: 25.9807px solid transparent;
   }
 
-  .results-hex.teal-hex:before{
-      border-top: 31.75426px solid transparent;
-      border-bottom: 31.75426px solid $teal;
+  .results-hex.hex1.teal-hex:before{
+      border-top: 25.9807px solid transparent;
+      border-bottom: 25.9807px solid $teal;
   }
 
-  .results-hex.teal-hex:after{
-      border-top: 31.75426px solid $teal;
-      border-bottom: 31.75426px solid transparent;
+  .results-hex.hex1.teal-hex:after{
+      border-top: 25.9807px solid $teal;
+      border-bottom: 25.9807px solid transparent;
   }
 }
 
