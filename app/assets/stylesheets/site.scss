@@ -180,7 +180,7 @@ a.navbar-brand {
     width: 110px;
     margin: 25.98px 0px;
     position: relative;
-    z-index: 1;
+    // z-index: 1;
     color: #FFFFFF;
     font-size: 14px;
     font-family: 'Lato', sans-serif;
@@ -195,7 +195,7 @@ a.navbar-brand {
     content: "";
     position: absolute;
     left: 0;
-    z-index: -1;
+    // z-index: -1;
 }
 
 .hex1:before{
@@ -395,7 +395,6 @@ hr {
       content: "";
       position: absolute;
       left: 0;
-      z-index: -1;
   }
 
   .results-hex.hex1:before{
