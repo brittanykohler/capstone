@@ -225,16 +225,23 @@ a.navbar-brand {
   box-shadow: none;
 }
 
+.btn:active, .btn.active {
+    outline: 0;
+    background-image: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .orange-hex {
   background-color: $orange;
 }
 
 .orange-hex:before {
-  border-bottom: 25.98px solid $orange;
+  border-bottom: 31.75426px solid $orange;
 }
 
 .orange-hex:after {
-  border-top: 25.98px solid $orange;
+  border-top: 31.75426px solid $orange;
 }
 
 .teal-hex {
@@ -242,11 +249,11 @@ a.navbar-brand {
 }
 
 .teal-hex:before {
-  border-bottom: 25.98px solid $teal;
+  border-bottom: 31.75426px solid $teal;
 }
 
 .teal-hex:after {
-  border-top: 25.98px solid $teal;
+  border-top: 31.75426px solid $teal;
 }
 
 .space {
@@ -403,24 +410,24 @@ hr {
       border-bottom: 25.9807px solid transparent;
   }
 
-  .results-hex.orange-hex:before{
-      border-top: 25.9807px solid transparent;
-      border-bottom: 25.9807px solid $orange;
+  .orange-hex.results-hex:before{
+      border-top: 31.75426px solid transparent;
+      border-bottom: 31.75426px solid $orange;
   }
 
   .results-hex.orange-hex:after{
-      border-top: 25.9807px solid $orange;
-      border-bottom: 25.9807px solid transparent;
+      border-top: 31.75426px solid $orange;
+      border-bottom: 31.75426px solid transparent;
   }
 
   .results-hex.teal-hex:before{
-      border-top: 25.9807px solid transparent;
-      border-bottom: 25.9807px solid $teal;
+      border-top: 31.75426px solid transparent;
+      border-bottom: 31.75426px solid $teal;
   }
 
   .results-hex.teal-hex:after{
-      border-top: 25.9807px solid $teal;
-      border-bottom: 25.9807px solid transparent;
+      border-top: 31.75426px solid $teal;
+      border-bottom: 31.75426px solid transparent;
   }
 }
 
@@ -451,6 +458,7 @@ hr {
   font-weight: 300;
   margin-top: 15px;
   padding: none;
+
   // letter-spacing: 2px;
   // margin-left: 2px;
   // margin-right: 2px;
