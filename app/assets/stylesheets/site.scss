@@ -450,6 +450,8 @@ hr {
   padding-left: 0px;
   margin-left: auto;
   margin-right: auto;
+  border: none;
+  border-radius: 0 !important;
 }
 
 .trip-btn, .place-btn {
@@ -458,6 +460,7 @@ hr {
   font-weight: 300;
   margin-top: 15px;
   padding: none;
+  border-style: none;
 
   // letter-spacing: 2px;
   // margin-left: 2px;
@@ -465,7 +468,7 @@ hr {
 }
 
 .steps-form-box {
-  margin-top: 15px;
+  margin-top: 32px;
   letter-spacing: 2px;
 }
 
