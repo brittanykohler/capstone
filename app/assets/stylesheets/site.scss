@@ -433,6 +433,16 @@ hr {
 .trip-btn.active, .place-btn.active {
   background-color: #EE6557;
   letter-spacing: 2px;
+  padding: none;
+}
+
+.btn {
+  padding-top: 0px;
+  padding-right: 0px;
+  text-align: center;
+  padding-left: 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .trip-btn, .place-btn {
@@ -440,9 +450,10 @@ hr {
   font-size: 12px;
   font-weight: 300;
   margin-top: 15px;
-  letter-spacing: 2px;
-  margin-left: 2px;
-  margin-right: 2px;
+  padding: none;
+  // letter-spacing: 2px;
+  // margin-left: 2px;
+  // margin-right: 2px;
 }
 
 .steps-form-box {
