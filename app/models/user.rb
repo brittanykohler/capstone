@@ -80,15 +80,17 @@ class User < ActiveRecord::Base
     week_data = []
     weekdays = []
     day = Time.now.utc + (self.offset_from_utc_millis / 1000)
-    7.times do
-      weekdays << day.strftime("%a")
-      day_formatted = day.strftime("%Y-%m-%d")
-      data = client.activities_on_date(day_formatted)
-      week_data << data["summary"]["steps"]
-      day -= 86400
+    day_minus_seven = day - 518400 #milliseconds
+    day_formatted = day.strftime("%Y-%m-%d")
+    day_minus_seven_formatted = day_minus_seven.strftime("%Y-%m-%d")
+
+    data = client.activity_on_date_range("steps", day_minus_seven_formatted, day_formatted)
+
+    # Array of Hashes with keys corresponding to date and step values
+    data["activities-steps"].each do |day|
+      weekdays << Date.parse(day["dateTime"]).strftime("%A")
+      week_data << day["value"].to_i
     end
-    week_data.reverse!
-    weekdays.reverse!
     return week_data, weekdays
   end
 
