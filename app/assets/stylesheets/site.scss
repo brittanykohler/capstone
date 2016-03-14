@@ -555,6 +555,22 @@ hr {
   }
 }
 
+//------------------ Hexagon Styling for Stats Page ----------------------------
+@media (max-width: 470px) {
+  .hex-text.stats-text {
+    font-size: 12px;
+    // padding-top: 25px;
+    // vertical-align: middle;
+    position: absolute;
+    transform: translateY(-17%);
+  }
+
+  .stats-hex {
+    position: relative;
+  }
+}
+
+
 
 //------------------ Hexagon Styling for Index Page ----------------------------
 #hexGrid {

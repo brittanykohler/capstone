@@ -4,30 +4,30 @@
   <div id="chart" style="width:100%; height:400px;"></div>
   <ul id="hexGrid">
    <li class="hex">
-     <a class="hexIn hexInOrange">
-       <h1 class="hex-text">LIFETIME MILES: <%= @lifetime_distance %></h1>
+     <a class="hexIn hexInOrange stats-hex">
+       <h1 class="hex-text stats-text">LIFETIME MILES: <%= @lifetime_distance %></h1>
      </a>
    </li>
    <li class="hex">
-     <a class="hexIn hexInGray">
+     <a class="hexIn hexInGray stats-hex">
        <!-- <%= image_tag("http://static0.fitbit.com/images/badges_new/300px/badge_lifetime_miles990.png") %> -->
-       <h1 class="hex-text">CURRENT BADGE: <%= @current_badge %></h1>
+       <h1 class="hex-text stats-text">CURRENT BADGE: <%= @current_badge %></h1>
      </a>
    </li>
    <li class="hex">
-     <a class="hexIn hexInTeal">
+     <a class="hexIn hexInTeal stats-hex">
        <!-- <%= image_tag("http://static0.fitbit.com/images/badges_new/300px/badge_lifetime_miles1600.png") %> -->
-       <h1 class="hex-text">NEXT BADGE: <%= @next_badge %></h1>
+       <h1 class="hex-text stats-text">NEXT BADGE: <%= @next_badge %></h1>
      </a>
    </li>
    <li class="hex">
-       <a class="hexIn hexInOrange" href="#">
-         <h1 class="hex-text">MILES TO NEXT BADGE: <%= @miles_to_next_badge %></h1>
+       <a class="hexIn hexInOrange stats-hex" href="#">
+         <h1 class="hex-text stats-text">MILES TO NEXT BADGE: <%= @miles_to_next_badge %></h1>
        </a>
    </li>
    <li class="hex">
-       <a class="hexIn hexInGray">
-         <h1 class="hex-text">STEPS TO NEXT BADGE: <%= @steps_to_next_badge %></h1>
+       <a class="hexIn hexInGray stats-hex">
+         <h1 class="hex-text stats-text">STEPS TO NEXT BADGE: <%= @steps_to_next_badge %></h1>
        </a>
    </li>
   </ul>
