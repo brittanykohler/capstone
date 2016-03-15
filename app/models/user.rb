@@ -114,9 +114,13 @@ class User < ActiveRecord::Base
         break
       end
     end
-    name = lifetime_distance_badge["name"]
-    value = lifetime_distance_badge["value"]
-    badge_info = {name: name, value: value}
+    if lifetime_distance_badge
+      name = lifetime_distance_badge["name"]
+      value = lifetime_distance_badge["value"]
+      badge_info = {name: name, value: value}
+    else
+      badge_info = {name: "No badges yet", value: 0}
+    end
     return badge_info
   end
 
@@ -144,13 +148,17 @@ class User < ActiveRecord::Base
     ]
     current_badge_value = current_badge[:value]
     next_badge = nil
-    index = 0
-    badges.each do |badge|
-      if badge[:value] == current_badge_value
-        next_badge = badges[index + 1]
-        break
+    if current_badge_value == 0
+      next_badge = badges[0]
+    else
+      index = 0
+      badges.each do |badge|
+        if badge[:value] == current_badge_value
+          next_badge = badges[index + 1]
+          break
+        end
+        index += 1
       end
-      index += 1
     end
     return next_badge
   end
@@ -173,7 +181,7 @@ class User < ActiveRecord::Base
 
   def get_steps_to_next_badge(next_badge, lifetime_distance)
     distance_needed = next_badge[:value] - lifetime_distance # in miles
-    distance_needed_cm = distance_needed * 160934
+    distance_needed_cm = distance_needed * 160934 # convert to cm
     steps_needed = (distance_needed_cm / self.stride_length_walking.to_f).round
     return steps_needed
   end
