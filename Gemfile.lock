@@ -78,6 +78,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     fitgem (0.12.1)
       oauth
+    fitgem_oauth2 (0.0.5)
+      faraday (~> 0.9)
     font-awesome-rails (4.5.0.1)
       railties (>= 3.2, < 5.1)
     globalid (0.3.6)
@@ -247,6 +249,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.0)
   fitgem
+  fitgem_oauth2
   font-awesome-rails
   gon
   jbuilder (~> 2.0)
