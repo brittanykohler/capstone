@@ -82,7 +82,7 @@ function handleLocationError(browserHasGeolocation, infoWindow) {
 }
 
 function displayPlacesError() {
-  $(".places").append("Sorry, there are no places that match your search. Please try again with different choices.");
+  $(".places").append("<div class='place-error'>Sorry, there are no places that match your search. Please try again with different choices.</div>");
 }
 
 
