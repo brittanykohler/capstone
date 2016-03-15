@@ -17,6 +17,7 @@
 /tmp
 .env
 ssl
+coverage
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
