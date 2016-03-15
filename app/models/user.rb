@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_current_steps
+  def get_fitbit_client
     client = Fitgem::Client.new({
       consumer_key: ENV['FITBIT_CLIENT_ID'],
       consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
@@ -38,8 +38,11 @@ class User < ActiveRecord::Base
 
     # Reconnects existing user using the information above
     client.reconnect(self.user_token, self.user_secret)
+    return client
+  end
 
-    # client.activities_on_date('2015-03-25') <- Specific Date
+  def get_current_steps
+    client = get_fitbit_client
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
     info = client.activities_on_date(formatted_today)
@@ -48,35 +51,14 @@ class User < ActiveRecord::Base
   end
 
   def get_step_goal
-    client = Fitgem::Client.new({
-      consumer_key: ENV['FITBIT_CLIENT_ID'],
-      consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    # Reconnects existing user using the information above
-    client.reconnect(self.user_token, self.user_secret)
-
-    # client.activities_on_date('2015-03-25') <- Specific Date
+    client = get_fitbit_client
     info = client.activities_on_date('today')
     step_goal = info["goals"]["steps"]
     return step_goal
   end
 
   def get_steps_for_week
-    client = Fitgem::Client.new({
-      consumer_key: ENV['FITBIT_CLIENT_ID'],
-      consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    # Reconnects existing user using the information above
-    client.reconnect(self.user_token, self.user_secret)
-
+    client = get_fitbit_client
     week_data = []
     weekdays = []
     day = Time.now.utc + (self.offset_from_utc_millis / 1000)
@@ -95,16 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def get_badges
-    client = Fitgem::Client.new({
-      consumer_key: ENV['FITBIT_CLIENT_ID'],
-      consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    # Reconnects existing user using the information above
-    client.reconnect(self.user_token, self.user_secret)
+    client = get_fitbit_client
     data = client.badges
     lifetime_distance_badge = nil
     # Sort through badges to find lifetime distance badge
@@ -163,17 +136,8 @@ class User < ActiveRecord::Base
     return next_badge
   end
 
-  def get_lifetime_distance()
-    client = Fitgem::Client.new({
-      consumer_key: ENV['FITBIT_CLIENT_ID'],
-      consumer_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    # Reconnects existing user using the information above
-    client.reconnect(self.user_token, self.user_secret)
+  def get_lifetime_distance
+    client = get_fitbit_client
     data = client.activity_statistics
     total_distance = data["lifetime"]["total"]["distance"]
     return total_distance
