@@ -177,7 +177,7 @@ function addToPage(sortedDestinations) {
    + "<div class='results-hex hex1 teal-hex'>STEPS: " + gon.steps_needed + "</div></div>");
   for (var i = 0; i < sortedDestinations.length; i++) {
     $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " - STEPS: " + sortedDestinations[i].steps + "</p>");
-    if (gon.trip_type == "Round-trip") {
+    if (gon.trip_type === "Round-trip") {
       $(".place" + i).append(" (TOTAL STEPS: " + sortedDestinations[i].steps * 2 + ")");
     }
     $(".place" + i).data("id", i);
