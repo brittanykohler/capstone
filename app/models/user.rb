@@ -87,9 +87,9 @@ class User < ActiveRecord::Base
     data = client.activity_on_date_range("steps", day_minus_seven_formatted, day_formatted)
 
     # Array of Hashes with keys corresponding to date and step values
-    data["activities-steps"].each do |day|
-      weekdays << Date.parse(day["dateTime"]).strftime("%A")
-      week_data << day["value"].to_i
+    data["activities-steps"].each do |activity_day|
+      weekdays << Date.parse(activity_day["dateTime"]).strftime("%A")
+      week_data << activity_day["value"].to_i
     end
     return week_data, weekdays
   end
