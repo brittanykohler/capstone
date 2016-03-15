@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   def get_fitbit_client
     client = FitgemOauth2::Client.new({
-      client_key: ENV['FITBIT_CLIENT_ID'],
+      client_id: ENV['FITBIT_CLIENT_ID'],
       client_secret: ENV['FITBIT_CLIENT_SECRET'],
       token: self.user_token,
       secret: self.user_secret,
