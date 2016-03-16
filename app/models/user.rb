@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
       if user.user_token != auth['credentials']['token'] && user.user_secret != auth['credentials']['secret']
         user.user_token = auth['credentials']['token']
         user.user_secret = auth['credentials']['secret']
+        user.refresh_token = auth["credentials"]["refresh_token"]
         user.save
       end
       return user
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
       user.photo                  = auth["extra"]["raw_info"]["user"]["avatar"]
       user.user_token             = auth["credentials"]["token"]
       user.user_secret            = auth["credentials"]["secret"]
+      user.refresh_token          = auth["credentials"]["refresh_token"]
       user.save
       return user
     end
@@ -29,20 +31,43 @@ class User < ActiveRecord::Base
 
   def get_fitbit_client
     client = FitgemOauth2::Client.new({
-      client_id: ENV['FITBIT_CLIENT_ID'],
+      client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
       client_secret: ENV['FITBIT_CLIENT_SECRET'],
       token: self.user_token,
       secret: self.user_secret,
       user_id: self.u_id,
     })
-    raise
-    # Reconnects existing user using the information above
-    # client.reconnect(self.user_token, self.user_secret)
+
+    refresh_data = client.refresh_access_token(self.refresh_token)
+    self.user_token = refresh_data["access_token"]
+    self.refresh_token = refresh_data["refresh_token"]
+
+    client = FitgemOauth2::Client.new({
+      client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
+      client_secret: ENV['FITBIT_CLIENT_SECRET'],
+      token: self.user_token,
+      secret: self.user_secret,
+      user_id: self.u_id,
+    })
+
     return client
   end
 
   def get_current_steps
-    client = get_fitbit_client
+    # client = get_fitbit_client
+
+    # base_uri 'https://api.fitbit.com/1/user/-/'
+    # encoded = Base64.strict_encode64("#{ENV['FITBIT_OAUTH2_CLIENT_ID']}:#{ENV['FITBIT_CLIENT_SECRET']}")
+    # auth = "Basic #{encoded}"
+    #
+    # content_type = "application/x-www-form-urlencoded"
+    # response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
+
+
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/profile.json", headers: { "Authorization" => auth })
+    raise
+
     # client.activities_on_date('2015-03-25') <- Specific Date
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')

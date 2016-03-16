@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307044941) do
+ActiveRecord::Schema.define(version: 20160316215221) do
 
   create_table "users", force: :cascade do |t|
     t.string   "u_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160307044941) do
     t.string   "user_token"
     t.string   "user_secret"
     t.integer  "offset_from_utc_millis"
+    t.string   "refresh_token"
   end
 
 end

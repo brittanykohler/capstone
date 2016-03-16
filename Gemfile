@@ -30,6 +30,7 @@ gem 'gon'
 # API requests
 gem 'fitgem'
 gem 'fitgem_oauth2'
+gem 'httparty'
 
 # JS underscore library
 gem 'underscore-rails'
