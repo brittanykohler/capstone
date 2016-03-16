@@ -1,0 +1,23 @@
+<% if logged_in? %>
+  <%= render "shared/nav" %>
+  <div class="row">
+    <div class="col-xs-3 orange-column">
+
+    </div>
+
+    <div class="col-xs-9 about-text">
+      <h1>ABOUT</h1>
+      FIT TRIP WAS DEVELOPED BY BRITTANY KOHLER FOR HER ADA DEVELOPERS ACADEMY CAPSTONE PROJECT. THE APP IS BUILT IN RUBY ON RAILS AND LEVERAGES A POSTGRESQL DATABASE FOR DATA STORAGE, HIGHCHARTS FOR VISUALIZATIONS, AND FITBIT AND GOOGLE MAPS APIS.
+    </div>    
+<% else %>
+  <div id="login-image">
+    <div id="app-logo">
+      FIT TRIP
+    </div>
+    <%= link_to(auth_fitbit_path) do %>
+      <div id="login-link">
+        <p id="login-text">LOGIN</p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
