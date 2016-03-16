@@ -847,7 +847,6 @@ hr {
 .orange-column {
   background-color: $orange;
   height: 900px;
-  // height: 100%;
 }
 
 .about-text {
@@ -865,4 +864,15 @@ hr {
 .about-image {
   margin-left: 67%;
   margin-top: 30%;
+}
+
+@media (max-width: 400px) {
+  .about-text {
+    font-size: 13px;
+  }
+
+  .about-image {
+    margin-left: 72%;
+    margin-top: 50%;
+  }
 }
