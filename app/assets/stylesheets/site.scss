@@ -844,24 +844,25 @@ hr {
 }
 
 // About Page Styles
-
 .orange-column {
   background-color: $orange;
-  height: 700px;
+  height: 900px;
+  // height: 100%;
 }
 
 .about-text {
   font-size: 18px;
   letter-spacing: 4px;
-  padding-left: 200px;
+  padding-left: 15%;
 }
 
 .about-para {
-  width: 50%;
+  width: 70%;
   margin-top: 15px;
-  // margin-left: 200px;
+  font-family: 'Lato', sans-serif;
 }
 
-.about-photo-box {
-  margin-left: 63%;
+.about-image {
+  margin-left: 67%;
+  margin-top: 30%;
 }
