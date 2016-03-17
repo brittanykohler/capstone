@@ -53,27 +53,25 @@ class User < ActiveRecord::Base
     return client
   end
 
-  def get_current_steps
-    # client = get_fitbit_client
-
-    # base_uri 'https://api.fitbit.com/1/user/-/'
+  def refresh_access_token
+    # Refresh Token
     encoded = Base64.strict_encode64("#{ENV['FITBIT_OAUTH2_CLIENT_ID']}:#{ENV['FITBIT_CLIENT_SECRET']}")
     auth = "Basic #{encoded}"
-
     content_type = "application/x-www-form-urlencoded"
     response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
     self.user_token = response["access_token"]
     self.refresh_token = response["refresh_token"]
+  end
 
-    auth = "Bearer #{self.user_token}"
-    response = HTTParty.get("https://api.fitbit.com/1/user/-/profile.json", headers: { "Authorization" => auth })
-    raise
+  def get_current_steps
+    refresh_access_token
 
-    # client.activities_on_date('2015-03-25') <- Specific Date
+    # Get request
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
-    info = client.activities_on_date(formatted_today)
-    current_steps = info["summary"]["steps"]
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+    current_steps = response["summary"]["steps"]
     return current_steps
   end
 
