@@ -4,16 +4,6 @@ RSpec.describe SiteController, type: :controller do
   describe "GET #index" do
     context "logged in" do
       it "renders the index page" do
-        user = User.create(u_id: ENV["FITBIT_UID"], name: "Brittany", timezone: "LosAngeles",
-          offset_from_utc_millis: -28800000, stride_length_walking: 72.4,
-          stride_length_running: 85, photo: "www.google.com",
-          user_token: ENV["FITBIT_USER_TOKEN"], user_secret: ENV["FITBIT_USER_SECRET"])
-        session[:user_id] = user.id
-        get :index
-        expect(response).to render_template :index
-      end
-
-      it "does things" do
         # move to user spec
         # client = double(Fitgem::Client)
         # allow(client).to receive(:reconnect)
@@ -36,11 +26,13 @@ RSpec.describe SiteController, type: :controller do
   describe "GET #results" do
     context "logged in" do
       it "renders the results page" do
-        user = User.create(u_id: ENV["FITBIT_UID"], name: "Brittany", timezone: "LosAngeles",
-          offset_from_utc_millis: -28800000, stride_length_walking: 72.4,
-          stride_length_running: 85, photo: "www.google.com",
-          user_token: ENV["FITBIT_USER_TOKEN"], user_secret: ENV["FITBIT_USER_SECRET"])
-        session[:user_id] = user.id
+        user = double(User)
+        allow(user).to receive(:offset_from_utc_millis).and_return(-28800000)
+        allow(user).to receive(:get_current_steps).and_return(1890)
+        allow(user).to receive(:get_step_goal).and_return(10000)
+        allow(user).to receive(:stride_length_walking).and_return(72.4)
+        allow(User).to receive(:find).and_return(user)
+        session[:user_id] = 18978
         get :results
         expect(response).to render_template :results
       end
@@ -50,11 +42,18 @@ RSpec.describe SiteController, type: :controller do
   describe "GET #stats" do
     context "logged in" do
       it "renders the stats page" do
-        user = User.create(u_id: ENV["FITBIT_UID"], name: "Brittany", timezone: "LosAngeles",
-          offset_from_utc_millis: -28800000, stride_length_walking: 72.4,
-          stride_length_running: 85, photo: "www.google.com",
-          user_token: ENV["FITBIT_USER_TOKEN"], user_secret: ENV["FITBIT_USER_SECRET"])
-        session[:user_id] = user.id
+        user = double(User)
+        allow(user).to receive(:offset_from_utc_millis).and_return(-28800000)
+        allow(user).to receive(:get_current_steps).and_return(1890)
+        allow(user).to receive(:get_step_goal).and_return(10000)
+        allow(user).to receive(:stride_length_walking).and_return(72.4)
+        allow(user).to receive(:get_badges).and_return({name: "Marathon (26 lifetime miles)", value: 26})
+        allow(user).to receive(:get_next_badge).and_return({:value => 70, :name => "Penguin March (70 lifetime miles)"})
+        allow(user).to receive(:get_lifetime_distance).and_return(50)
+        allow(user).to receive(:get_steps_to_next_badge).and_return(5890)
+        allow(user).to receive(:get_steps_for_week).and_return([123, 4, 5, 6, 7, 6, 7], ["M", "T", "W", "Th", "F", "S", "S"])
+        allow(User).to receive(:find).and_return(user)
+        session[:user_id] = 18978
         get :stats
         expect(response).to render_template :stats
       end
@@ -64,11 +63,12 @@ RSpec.describe SiteController, type: :controller do
   describe "GET #trips" do
     context "logged in" do
       it "renders the trips page" do
-        user = User.create(u_id: ENV["FITBIT_UID"], name: "Brittany", timezone: "LosAngeles",
-          offset_from_utc_millis: -28800000, stride_length_walking: 72.4,
-          stride_length_running: 85, photo: "www.google.com",
-          user_token: ENV["FITBIT_USER_TOKEN"], user_secret: ENV["FITBIT_USER_SECRET"])
-        session[:user_id] = user.id
+        user = double(User)
+        allow(user).to receive(:get_current_steps).and_return(1890)
+        allow(user).to receive(:get_step_goal).and_return(10000)
+        allow(user).to receive(:stride_length_walking).and_return(72.4)
+        allow(User).to receive(:find).and_return(user)
+        session[:user_id] = 18978
         get :trips
         expect(response).to render_template :trips
       end
