@@ -4,9 +4,8 @@ class User < ActiveRecord::Base
     user = self.find_by(u_id: auth["uid"])
     if !user.nil?
       # User found in db
-      if user.user_token != auth['credentials']['token'] && user.user_secret != auth['credentials']['secret']
+      if user.user_token != auth['credentials']['token'] && user.refresh_token != auth['credentials']['refresh_token']
         user.user_token = auth['credentials']['token']
-        user.user_secret = auth['credentials']['secret']
         user.refresh_token = auth["credentials"]["refresh_token"]
         user.save
       end
@@ -22,36 +21,36 @@ class User < ActiveRecord::Base
       user.stride_length_running  = auth["extra"]["raw_info"]["user"]["strideLengthRunning"]
       user.photo                  = auth["extra"]["raw_info"]["user"]["avatar"]
       user.user_token             = auth["credentials"]["token"]
-      user.user_secret            = auth["credentials"]["secret"]
+      # user.user_secret            = auth["credentials"]["secret"]
       user.refresh_token          = auth["credentials"]["refresh_token"]
       user.save
       return user
     end
   end
-
-  def get_fitbit_client
-    client = FitgemOauth2::Client.new({
-      client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
-      client_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    refresh_data = client.refresh_access_token(self.refresh_token)
-    self.user_token = refresh_data["access_token"]
-    self.refresh_token = refresh_data["refresh_token"]
-
-    client = FitgemOauth2::Client.new({
-      client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
-      client_secret: ENV['FITBIT_CLIENT_SECRET'],
-      token: self.user_token,
-      secret: self.user_secret,
-      user_id: self.u_id,
-    })
-
-    return client
-  end
+  #
+  # def get_fitbit_client
+  #   client = FitgemOauth2::Client.new({
+  #     client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
+  #     client_secret: ENV['FITBIT_CLIENT_SECRET'],
+  #     token: self.user_token,
+  #     secret: self.user_secret,
+  #     user_id: self.u_id,
+  #   })
+  #
+  #   refresh_data = client.refresh_access_token(self.refresh_token)
+  #   self.user_token = refresh_data["access_token"]
+  #   self.refresh_token = refresh_data["refresh_token"]
+  #
+  #   client = FitgemOauth2::Client.new({
+  #     client_id: ENV['FITBIT_OAUTH2_CLIENT_ID'],
+  #     client_secret: ENV['FITBIT_CLIENT_SECRET'],
+  #     token: self.user_token,
+  #     secret: self.user_secret,
+  #     user_id: self.u_id,
+  #   })
+  #
+  #   return client
+  # end
 
   def refresh_access_token
     # Refresh Token
@@ -65,17 +64,19 @@ class User < ActiveRecord::Base
     else
       self.user_token = response["access_token"]
       self.refresh_token = response["refresh_token"]
+      self.save
     end
   end
 
   def get_current_steps
-    # refresh_access_token
+    refresh_access_token
     # Get request
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
     if response["errors"]
+      raise
       refresh_access_token
       auth = "Bearer #{self.user_token}"
       response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
