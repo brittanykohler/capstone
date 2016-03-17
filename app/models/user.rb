@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
     auth = "Basic #{encoded}"
     content_type = "application/x-www-form-urlencoded"
     response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
+    # raise
     self.user_token = response["access_token"]
     self.refresh_token = response["refresh_token"]
   end
@@ -76,10 +77,12 @@ class User < ActiveRecord::Base
   end
 
   def get_step_goal
-    client = get_fitbit_client
-    # client.activities_on_date('2015-03-25') <- Specific Date
-    info = client.activities_on_date('today')
-    step_goal = info["goals"]["steps"]
+    refresh_access_token
+    today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
+    formatted_today = today.strftime('%Y-%m-%d')
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+    step_goal = response["goals"]["steps"]
     return step_goal
   end
 
