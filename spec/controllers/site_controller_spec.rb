@@ -4,13 +4,6 @@ RSpec.describe SiteController, type: :controller do
   describe "GET #index" do
     context "logged in" do
       it "renders the index page" do
-        # move to user spec
-        # client = double(Fitgem::Client)
-        # allow(client).to receive(:reconnect)
-        # allow(client).to receive(:activities_on_date).and_return({"summary" => {"steps" => "4"}, "goals" => {"steps" => "10000"}})
-        #
-        # allow_any_instance_of(User).to receive(:get_fitbit_client).and_return(client)
-
         user = double(User)
         allow(user).to receive(:offset_from_utc_millis).and_return(-28800000)
         allow(user).to receive(:get_current_steps).and_return(1890)
