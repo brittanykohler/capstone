@@ -36,9 +36,14 @@ RSpec.describe User, type: :model do
     end
 
     it "returns a step value" do
+      client = double(Fitgem::Client)
+      allow(client).to receive(:reconnect)
+      allow(client).to receive(:activities_on_date).and_return({"summary" => {"steps" => "4"}, "goals" => {"steps" => "10000"}})
+      allow_any_instance_of(User).to receive(:get_fitbit_client).and_return(client)
+
       user = User.find_or_create_from_omniauth(@auth_hash)
       steps = user.get_current_steps
-      expect(steps).not_to be_nil
+      expect(steps).to eq("4")
     end
   end
 end
