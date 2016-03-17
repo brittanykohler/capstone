@@ -75,6 +75,11 @@ class User < ActiveRecord::Base
     formatted_today = today.strftime('%Y-%m-%d')
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+    if response["errors"]
+      refresh_access_token
+      auth = "Bearer #{self.user_token}"
+      response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+    end
     current_steps = response["summary"]["steps"]
     return current_steps
   end
@@ -85,6 +90,13 @@ class User < ActiveRecord::Base
     formatted_today = today.strftime('%Y-%m-%d')
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+
+    if response["errors"]
+      refresh_access_token
+      auth = "Bearer #{self.user_token}"
+      response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/date/#{formatted_today}.json", headers: { "Authorization" => auth })
+    end
+
     step_goal = response["goals"]["steps"]
     return step_goal
   end
@@ -103,6 +115,12 @@ class User < ActiveRecord::Base
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/steps/date/#{day_minus_seven_formatted}/#{day_formatted}.json", headers: { "Authorization" => auth })
 
+    if response["errors"]
+      refresh_access_token
+      auth = "Bearer #{self.user_token}"
+      response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/steps/date/#{day_minus_seven_formatted}/#{day_formatted}.json", headers: { "Authorization" => auth })
+    end
+
     # Array of Hashes with keys corresponding to date and step values
     response["activities-steps"].each do |day|
       weekdays << Date.parse(day["dateTime"]).strftime("%A")
@@ -117,6 +135,12 @@ class User < ActiveRecord::Base
 
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/badges.json", headers: { "Authorization" => auth })
+
+    if response["errors"]
+      refresh_access_token
+      auth = "Bearer #{self.user_token}"
+      response = HTTParty.get("https://api.fitbit.com/1/user/-/badges.json", headers: { "Authorization" => auth })
+    end
 
     lifetime_distance_badge = nil
     # Sort through badges to find lifetime distance badge
@@ -168,10 +192,14 @@ class User < ActiveRecord::Base
   end
 
   def get_lifetime_distance()
-    # client = get_fitbit_client
-    # data = client.activity_statistics
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/activities.json", headers: { "Authorization" => auth })
+
+    if response["errors"]
+      refresh_access_token
+      auth = "Bearer #{self.user_token}"
+      response = HTTParty.get("https://api.fitbit.com/1/user/-/activities.json", headers: { "Authorization" => auth })
+    end
 
     total_distance = response["lifetime"]["total"]["distance"] # in km
     total_distance *= 0.621371
