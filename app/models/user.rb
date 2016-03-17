@@ -57,12 +57,13 @@ class User < ActiveRecord::Base
     # client = get_fitbit_client
 
     # base_uri 'https://api.fitbit.com/1/user/-/'
-    # encoded = Base64.strict_encode64("#{ENV['FITBIT_OAUTH2_CLIENT_ID']}:#{ENV['FITBIT_CLIENT_SECRET']}")
-    # auth = "Basic #{encoded}"
-    #
-    # content_type = "application/x-www-form-urlencoded"
-    # response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
+    encoded = Base64.strict_encode64("#{ENV['FITBIT_OAUTH2_CLIENT_ID']}:#{ENV['FITBIT_CLIENT_SECRET']}")
+    auth = "Basic #{encoded}"
 
+    content_type = "application/x-www-form-urlencoded"
+    response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
+    self.user_token = response["access_token"]
+    self.refresh_token = response["refresh_token"]
 
     auth = "Bearer #{self.user_token}"
     response = HTTParty.get("https://api.fitbit.com/1/user/-/profile.json", headers: { "Authorization" => auth })
