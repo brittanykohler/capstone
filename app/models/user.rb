@@ -60,13 +60,16 @@ class User < ActiveRecord::Base
     content_type = "application/x-www-form-urlencoded"
     response = HTTParty.post("https://api.fitbit.com/oauth2/token", headers: {"Authorization" => auth, "Content-Type" => content_type}, body: {"grant_type" => "refresh_token", "refresh_token" => self.refresh_token})
     # raise
-    self.user_token = response["access_token"]
-    self.refresh_token = response["refresh_token"]
+    if response["access_token"].nil?
+      raise
+    else
+      self.user_token = response["access_token"]
+      self.refresh_token = response["refresh_token"]
+    end
   end
 
   def get_current_steps
-    refresh_access_token
-
+    # refresh_access_token
     # Get request
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
@@ -77,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def get_step_goal
-    refresh_access_token
+    # refresh_access_token
     today = Time.now.utc + (self.offset_from_utc_millis / 1000) # convert difference to seconds
     formatted_today = today.strftime('%Y-%m-%d')
     auth = "Bearer #{self.user_token}"
@@ -87,8 +90,7 @@ class User < ActiveRecord::Base
   end
 
   def get_steps_for_week
-    client = get_fitbit_client
-
+    # refresh_access_token
     week_data = []
     weekdays = []
     day = Time.now.utc + (self.offset_from_utc_millis / 1000)
@@ -96,10 +98,13 @@ class User < ActiveRecord::Base
     day_formatted = day.strftime("%Y-%m-%d")
     day_minus_seven_formatted = day_minus_seven.strftime("%Y-%m-%d")
 
-    data = client.activity_on_date_range("steps", day_minus_seven_formatted, day_formatted)
+    # data = client.activity_on_date_range("steps", day_minus_seven_formatted, day_formatted)
+
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/activities/steps/date/#{day_minus_seven_formatted}/#{day_formatted}.json", headers: { "Authorization" => auth })
 
     # Array of Hashes with keys corresponding to date and step values
-    data["activities-steps"].each do |day|
+    response["activities-steps"].each do |day|
       weekdays << Date.parse(day["dateTime"]).strftime("%A")
       week_data << day["value"].to_i
     end
@@ -107,11 +112,15 @@ class User < ActiveRecord::Base
   end
 
   def get_badges
-    client = get_fitbit_client
-    data = client.badges
+    # client = get_fitbit_client
+    # data = client.badges
+
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/badges.json", headers: { "Authorization" => auth })
+
     lifetime_distance_badge = nil
     # Sort through badges to find lifetime distance badge
-    data["badges"].each do |badge|
+    response["badges"].each do |badge|
       if badge["badgeType"] == "LIFETIME_DISTANCE"
         lifetime_distance_badge = badge
         break
@@ -159,9 +168,13 @@ class User < ActiveRecord::Base
   end
 
   def get_lifetime_distance()
-    client = get_fitbit_client
-    data = client.activity_statistics
-    total_distance = data["lifetime"]["total"]["distance"]
+    # client = get_fitbit_client
+    # data = client.activity_statistics
+    auth = "Bearer #{self.user_token}"
+    response = HTTParty.get("https://api.fitbit.com/1/user/-/activities.json", headers: { "Authorization" => auth })
+
+    total_distance = response["lifetime"]["total"]["distance"] # in km
+    total_distance *= 0.621371
     return total_distance
   end
 
