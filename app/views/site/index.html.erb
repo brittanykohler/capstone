@@ -21,43 +21,29 @@
       <%= @steps_needed_message %>
     </div>
   </div>
-  <!-- <div class="row index-button">
-    <%= link_to(trips_path) do %>
-      <div class="hex1">
-        GET TRIP
-      </div>
-    <% end %>
-  </div>
-  <div class="row index-button space">
-    <%= link_to(stats_path) do %>
-      <div class="hex1 orange-hex">
-        STATS
-      </div>
-    <% end %>
-  </div> -->
-<ul id="hexGrid">
- <li class="hex">
-   <a class="hexIn hexInOrange" href="/trips">
-     <h1 class="hex-text">GET TRIPS</h1>
-   </a>
- </li>
- <li class="hex">
-   <a class="hexIn hexInGray"></a>
- </li>
- <li class="hex">
-   <a class="hexIn hexInTeal" href="/stats">
-     <h1 class="hex-text">VIEW STATS</h1>
-   </a>
- </li>
- <li class="hex">
-     <a class="hexIn" href="#">
-       <%= image_tag("/assets/shoes2-873731283cf49a3f6a2f9a7ac3df425da2c8bb71171463ee7fc8fec8b12674fa.jpg") %>
+  <ul id="hexGrid">
+   <li class="hex">
+     <a class="hexIn hexInOrange" href="/trips">
+       <h1 class="hex-text">GET TRIPS</h1>
      </a>
- </li>
- <li class="hex">
+   </li>
+   <li class="hex">
      <a class="hexIn hexInGray"></a>
- </li>
-</ul>
+   </li>
+   <li class="hex">
+     <a class="hexIn hexInTeal" href="/stats">
+       <h1 class="hex-text">VIEW STATS</h1>
+     </a>
+   </li>
+   <li class="hex">
+       <a class="hexIn" href="/about">
+         <%= image_tag("/assets/shoes2-873731283cf49a3f6a2f9a7ac3df425da2c8bb71171463ee7fc8fec8b12674fa.jpg") %>
+       </a>
+   </li>
+   <li class="hex">
+       <a class="hexIn hexInGray"></a>
+   </li>
+  </ul>
 <% else %>
   <div id="login-image">
     <div id="app-logo">

@@ -93,7 +93,7 @@ function getComplement(arr1, arr2) {
   for (var i = 0; i < arr2.length; i++) {
     var unique = true;
     for (var j = 0; j < arr1.length; j++) {
-      if (arr1[j].place_id == arr2[i].place_id) {
+      if (arr1[j].place_id === arr2[i].place_id) {
         unique = false;
         break;
       }
@@ -173,11 +173,10 @@ function listPlaces(destinations) {
 }
 
 function addToPage(sortedDestinations) {
-  $(".places").append("<div class='results-display'> <div class='results-hex hex1 orange-hex'>" + gon.trip_type.toUpperCase() + "</div>" + "<div class='results-hex hex1'>" + gon.place_type.toUpperCase() + "</div>"
-   + "<div class='results-hex hex1 teal-hex'>STEPS: " + gon.steps_needed + "</div></div>");
+  $(".places").append("<div class='results-display'> <div class='results-hex hex1 orange-hex'>" + gon.trip_type.toUpperCase() + "</div><div class='results-hex hex1'>" + gon.place_type.toUpperCase() + "</div><div class='results-hex hex1 teal-hex'>STEPS: " + gon.steps_needed + "</div></div>");
   for (var i = 0; i < sortedDestinations.length; i++) {
     $(".places").append("<p class='place" + i + " place-box'>" + sortedDestinations[i].name + " - STEPS: " + sortedDestinations[i].steps + "</p>");
-    if (gon.trip_type == "Round-trip") {
+    if (gon.trip_type === "Round-trip") {
       $(".place" + i).append(" (TOTAL STEPS: " + sortedDestinations[i].steps * 2 + ")");
     }
     $(".place" + i).data("id", i);
@@ -210,7 +209,7 @@ function getName(place, id, callback2) {
   service.getDetails(request, callback);
 
   function callback(result, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       callback2(result.name, id);
     }
   }
@@ -225,7 +224,7 @@ function getDistance(place, id, callback2) {
     unitSystem: google.maps.UnitSystem.IMPERIAL
   };
   dms.getDistanceMatrix(query, function(response, status) {
-    if (status == "OK") {
+    if (status === "OK") {
       var distanceMeters = response.rows[0].elements[0].distance.value;
       callback2(distanceMeters, id);
     }
@@ -243,7 +242,7 @@ function getRouteFunction(j, destinations) {
     origin: origins[0],
     destination: new google.maps.LatLng(destinations[j].geometry.location.lat(), destinations[j].geometry.location.lng()),
     travelMode: google.maps.TravelMode.WALKING,
-    unitSystem: query.unitSystem,
+    unitSystem: query.unitSystem
   };
   if (highlightedCell) {
     highlightedCell.removeClass("highlighted-cell");
@@ -267,7 +266,7 @@ function showRoute() {
   });
 
   dirService.route(routeQuery, function(result, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
+    if (status === google.maps.DirectionsStatus.OK) {
       dirRenderer.setDirections(result);
       bounds = new google.maps.LatLngBounds();
       bounds.extend(result.routes[0].overview_path[0]);

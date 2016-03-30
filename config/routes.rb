@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get "/stats", to: "site#stats"
   get "/trips", to: "site#trips"
   post "/results", to: "site#results"
+  get "/about", to: "site#about"
   get "/.well-known/acme-challenge/#{ENV['LE_AUTH_REQUEST']}", to: 'site#letsencrypt'
 end

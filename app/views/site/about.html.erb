@@ -1,0 +1,29 @@
+<% if logged_in? %>
+  <%= render "shared/nav" %>
+  <div class="row">
+    <div class="col-xs-3 orange-column">
+      <%= image_tag("shoesHex.png", class: "img-responsive about-image") %>
+    </div>
+
+    <div class="col-xs-9 about-text">
+      <h1>ABOUT</h1>
+      <!-- FIT TRIP WAS DEVELOPED BY BRITTANY KOHLER FOR HER ADA DEVELOPERS ACADEMY CAPSTONE PROJECT. THE APP IS BUILT IN RUBY ON RAILS AND LEVERAGES A POSTGRESQL DATABASE FOR DATA STORAGE, HIGHCHARTS FOR VISUALIZATIONS, AND FITBIT AND GOOGLE MAPS APIS. -->
+      <div class="about-para">
+        Fit Trip was developed by Brittany Kohler for her Ada Developers Academy capstone project. The app is built in Ruby on Rails and leverages a PostgreSQL database for data storage, Highcharts for visualizations, and APIs from Fitbit and Google Maps.
+      </div>
+      <div class="about-para">
+        Fit Trip allows Fitbit users to search for places to walk to meet their daily step goal and provides statistics to help users reach their next lifetime distance badge.
+      </div>
+    </div>
+  <% else %>
+  <div id="login-image">
+    <div id="app-logo">
+      FIT TRIP
+    </div>
+    <%= link_to(auth_fitbit_path) do %>
+      <div id="login-link">
+        <p id="login-text">LOGIN</p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

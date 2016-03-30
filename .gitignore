@@ -16,8 +16,8 @@
 !/log/.keep
 /tmp
 .env
-coverage
 ssl
+coverage
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
